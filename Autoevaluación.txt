@@ -1,0 +1,92 @@
+
+PUNTAJE: 
+
+0: No realizado.
+0.25: Implementación con problemas mayores (funciona 25% de las veces o no funciona)
+0.5: Implementación con funcionamiento irregular (funciona 50% de las veces)
+0.75: Implementación con problemas menores (funciona 75% de las veces)
+1: Implementación completa sin problemas (funciona 100% de las veces)
+
+
+Requerimientos Funcionales Obligatorios.
+
+1. Clases y estructuras que forman el programa (1 pto) 1
+
+2. Funcionalidades Mínimas
+
+a. Archivo de Texto Plano                              1
+
+b. Commit:                                             1
+
+c. Zonas de trabajo:                                   1
+
+d. Repositorio:                                        1
+
+a. gitInit:                                            1
+
+b. gitAdd:                                             1
+
+c. gitCommit:                                          1
+
+d. gitPush:                                            1
+
+e. gitPull:                                            1
+
+f. gitStatus:                                          1
+
+
+3. Interacción con el usuario (0,5 pto):               1
+
+4. Requerimientos extra 
+
+1. gitLog (1 pto) :                                    1
+
+2. gitBranch (2 pto):                                  1
+
+3. gitCheckout (1 pto):                                1
+
+4. gitMerge (1 pto):                                   0
+
+
+Requerimientos No Funcionales obligatorios. 
+
+
+1. La implementación debe ser en el lenguaje de programación Java
+
+PUNTAJE : 1
+
+
+2. Todas las interacciones con el programa deben ser mediante consola/terminal. Puede recurrir al uso de System.in y 
+System.out (en Java). Para sus funcionalidades, solo se permite el uso de la biblioteca estándar de Java (sin importar bibliotecas
+externas).
+
+PUNTAJE : 1
+
+3. (obligatorio) Su solución debe demostrar la aplicación del paradigma orientado a objetos. No basta con que su solución esté 
+implementada en Java. Su diseño y correspondiente implementación debe seguir los lineamientos del paradigma Orientado a Objetos.
+
+PUNTAJE : 1
+
+4. (1 pto) Se debe documentar el código indicando una breve descripción de las clases creadas, sus atributos, métodos y relaciones. 
+Procure utilizar comentarios tipo Javadoc para esto.
+
+PUNTAJE : 1
+
+5. (1 pto) Se debe cuidar la organización del código (orden y claridad). Procure que su diseño de clases no viole los principios de 
+acoplamiento y cohesión.
+
+PUNTAJE 1
+
+6. (1.5 pto) Como parte de su Informe de Laboratorio, debe incluir un diagrama de clases UML a nivel de análisis que describa las 
+entidades y relaciones del problema abordado.
+
+PUNTAJE 1
+
+7. (1.5 pto) Como parte de su Informe de Laboratorio, debe incluir un diagrama de clases UML tras la implementación de la solución
+
+PUNTAJE : 1
+
+8. (1 pto) Historial de trabajo en GitHub 
+
+PUNTAJE : 1
+

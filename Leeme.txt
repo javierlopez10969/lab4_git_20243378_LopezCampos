@@ -1,0 +1,20 @@
+El repositorio de este laboratorio se encuentra en  :
+
+https://github.com/javierlopez10969/lab3_git_20243378_LopezCampos.git
+
+Para ejecutar la simulación de git, dirigase a la carpeta Código Fuente/src. Una vez allí abra la consola o cmd ubicada en esa dirección
+de memoria.
+
+https://www.solvetic.com/tutoriales/article/6464-como-abrir-terminal-con-una-carpeta-especifica-en-ubuntu/
+
+https://answers.microsoft.com/es-es/windows/forum/all/c%C3%B3mo-abrir-cmd-desde-la-carpeta-actual/d924684f-d486-4382-b1f3-2b631b02caad
+
+Con la consola abierta en esa dirección, ejcute los siguientes comandos : 
+
+javac Compilar.java
+
+java Compilar
+
+java modelo.Menu
+
+Ahora podrá simular git.
