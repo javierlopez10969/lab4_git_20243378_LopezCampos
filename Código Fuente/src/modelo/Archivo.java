@@ -1,5 +1,4 @@
 package modelo;
-import utils.Contenido;
 
 /**
  * Interfaz de la clase archivo, para posteriormente implementarla en la clase MiArchivo

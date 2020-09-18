@@ -1,7 +1,4 @@
-package utils;
-import modelo.Archivo;
-import modelo.MiArchivo;
-
+package modelo;
 
 /**
  *  * Clase del tipo lista enlazada, la cual guarda todos los archivos posibles sin un limite

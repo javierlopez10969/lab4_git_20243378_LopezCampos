@@ -1,7 +1,5 @@
 package modelo;
 import java.util.Scanner;
-//Importaciones
-import utils.ListaDeArchivos;
 
 /* Clase encargada de la manipulación del workspace, podría ser una lista de archivos simplemente el workspace
  * Y que esa lista sea manipulada por el mismo repositorio, pero necesitamos que una clase se ocupe enteramente del workspace

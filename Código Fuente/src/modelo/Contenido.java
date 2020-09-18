@@ -1,4 +1,4 @@
-package utils;
+package modelo;
 
 /**
  * Case que permite la edición de un archivo de texto plano

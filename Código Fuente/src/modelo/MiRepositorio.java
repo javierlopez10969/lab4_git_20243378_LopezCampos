@@ -1,7 +1,5 @@
 package modelo;
 
-import utils.ListaDeArchivos;
-
 public class MiRepositorio implements Cloneable{
 	//Atributos
 	private String nombreRepositorio;

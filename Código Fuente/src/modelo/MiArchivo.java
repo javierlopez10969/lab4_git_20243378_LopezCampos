@@ -2,8 +2,6 @@
 package modelo;
 import java.util.Scanner;
 
-import utils.Contenido;
-
 /**
  * Clase que implementa los que presentado en la interfaz Archivo
  * Es la abstracción de un archivo de texto plano

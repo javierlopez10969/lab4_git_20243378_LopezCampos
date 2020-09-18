@@ -1,7 +1,5 @@
 package vista;
 import java.awt.Color;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -9,7 +7,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 
@@ -21,12 +18,24 @@ public class Ventana extends JFrame {
 	//Establecemos el panel para el inicio de la simulación : 
 	public JPanel  panel = new JPanel();
 	public JButton iniciar = new JButton();
-	public JTextField autor = new JTextField();
-	public JTextField repositorio = new JTextField();
+	public PlaceHolder autor = new PlaceHolder("Autor...");
+	public PlaceHolder repositorio =new PlaceHolder("Repositorio...");
 	public JLabel titulo = new JLabel("Simulación de GIT",SwingConstants.CENTER);
 	
 	//Panel 2 de comandos
 	public JPanel  panel2 = new JPanel();
+	public JLabel autorLabel = new JLabel();
+	public JLabel repositorioLabel = new JLabel();
+	//Botones
+	public JButton reInit= new JButton();
+	public JButton add= new JButton();
+	public JButton commit = new JButton();
+	public JButton pull = new JButton();
+	public JButton push= new JButton();
+	public JButton workspace= new JButton();
+	public JButton gitStatusButton = new JButton();
+	
+	
 	
 	//Metodos
 	public Ventana(){
@@ -50,7 +59,8 @@ public class Ventana extends JFrame {
          //titulo.setOpaque(true);
          titulo.setFont(MainVista.myFont);
          titulo.setBackground(Color.gray);
-         titulo.setBounds(190,0,140,20);   
+         titulo.setBounds(190,0,140,20);  
+         
          //Autor
          JLabel autorText = new JLabel("Autor :",SwingConstants.CENTER);
          //titulo.setForeground(azul);
@@ -68,42 +78,17 @@ public class Ventana extends JFrame {
          repositorioText.setBounds(50,100,140,20);
          //BOTONES : 
          
-					//   X   Y  W   H 
+		//   X   Y  W   H 
      	 iniciar.setBounds(170,200,200,20);
 		 iniciar.setText("Iniciar Simulación");
-		 //iniciar.setOpaque(true);
-		 //iniciar.setForeground(azul);
 		 iniciar.setBackground(MainVista.rojo);
 		 
 		 //ENTRADAS :
 		 
 		 //Cuadros de texto para recibir las variables
-		 autor.setText("");
-         autor.setBounds(230,70,100,30);
-         JLabel autorHolder = new JLabel("Autor...") ;
-         autorHolder.setFont(MainVista.myFont);
-         autorHolder.setBackground(Color.gray);
-         autorHolder.setBounds(240,70,100,30);
-         
-         autor.addKeyListener(new KeyAdapter() {
-        	 @Override
-        	public void keyTyped(KeyEvent key) {
-        		if (key.getKeyChar()!=KeyEvent.VK_BACK_SPACE) {
-					autorHolder.setVisible(false);
-					System.out.println("Autor : "+autor.getText()+" Key :"+key.getKeyChar() +"\n");
-				}
-        		else if (autor.getText().equals("")) {
-					autorHolder.setVisible(true);
-					panel.add(autorHolder);
-					autorHolder.setBounds(250,70,100,30);
-					System.out.println("Autor : NULL"+autor.getText()+" Key :"+key.getKeyChar() +"\n");
-				}
-				
-        	}
-		});
-         
-         repositorio.setText("Repositorio...");
-         repositorio.setBounds(230,100,100,30);
+         autor.getField().setBounds(230,70,100,30);
+         //JOptionPane.showMessageDialog(null,autor);
+         repositorio.getField().setBounds(230,100,100,30);
          
 		 //Añadimos los elementos al panel
          
@@ -111,10 +96,9 @@ public class Ventana extends JFrame {
          panel.add(titulo);
          panel.add(autorText);
          panel.add(repositorioText);
-         panel.add(autorHolder);
          //Field
-         panel.add(autor);
-         panel.add(repositorio);
+         panel.add(autor.getField());
+         panel.add(repositorio.getField());
          //Boton
          panel.add(iniciar);   
          
@@ -124,9 +108,59 @@ public class Ventana extends JFrame {
 	 public void iniciarPanel2() {
 		 panel2.setLayout(null);//Desactivamos diseño
          panel2.setBackground(MainVista.celeste);
-         this.getContentPane().add(panel2);
-         panel2.setVisible(true);         
+         this.getContentPane().add(panel2);      
+         
+         
+         //Seteando posicion y labels de botones
+         //LABEL DE AUTOR
+         autorLabel.setBounds(20,20, 150, 20);
+         repositorioLabel.setBounds(20,40,150, 20);
+         
+         //Añadiendo los labels
          panel2.add(titulo);
+         panel2.add(autorLabel);
+         panel2.add(repositorioLabel);
+         //BOTONES
+         reInit.setBounds(20,370,90,20);
+         reInit.setText("Re-Init");
+		 reInit.setForeground(Color.white);
+		 reInit.setBackground(MainVista.grisGitHub);
+		 
+         add.setBounds(120, 370,90,20);
+		 add.setText("Add");
+		 add.setForeground(Color.white);
+		 add.setBackground(MainVista.grisGitHub);
+		 
+         commit.setBounds(220, 370, 90,20);
+         commit.setForeground(Color.white);
+		 commit.setText("Commit");
+		 commit.setBackground(MainVista.grisGitHub);
+		 
+		 
+         pull.setBounds(320, 370, 90,20);
+         pull.setForeground(Color.white);
+		 pull.setText("Pull");
+		 pull.setBackground(MainVista.grisGitHub);
+         
+         push.setBounds(20, 400, 90,20);
+         
+        
+
+         
+         workspace.setBounds(10, 200, 115,40);
+		 workspace.setText("<html><center>"+"<html>Workspace<br   />Status</html>");
+		 workspace.setForeground(Color.white);
+		 workspace.setBackground(MainVista.negro);
+         
+		 
+         //Añadiendo Botones al panel
+         panel2.add(add);
+         panel2.add(commit);
+         panel2.add(workspace);
+         panel2.add(pull);
+         panel2.add(push);
+         panel2.add(reInit);
+         panel2.add(gitStatusButton);
 	 }
 	
 }

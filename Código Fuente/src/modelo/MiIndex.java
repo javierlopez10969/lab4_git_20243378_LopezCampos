@@ -1,8 +1,6 @@
 package modelo;
 import java.util.Scanner;
 
-import utils.ListaDeArchivos;
-
 /* Clase de hacer el manejo del index, podría ser una lista de archivos simplemente como el workspace
  * Y que esa lista sea manipulada por el mismo repositorio, pero necesitamos que una clase se ocupe enteramente del index
  * Para no dejar sobrecargada a la clase repositorio
@@ -31,7 +29,6 @@ public class MiIndex{
 			@SuppressWarnings("resource")
 			Scanner scanner = new Scanner(System.in);
 			while(x < 5) {
-					Menu.limpiarPantalla();
 					//Mostramos los archivos en el workspace
 					System.out.println("Workspace actual : ");
 					System.out.println(workspace.nombreFecha2String());

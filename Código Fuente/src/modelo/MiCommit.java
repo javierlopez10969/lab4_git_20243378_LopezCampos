@@ -1,8 +1,6 @@
 package modelo;
 import java.util.Scanner;
 
-import utils.ListaDeArchivos;
-
 /**
  *  Clase encargada de manejar los dos repositorios, local como remoto
  * Se encarga de agregar cada commit como una pila enlazandola a  los commits anteriores

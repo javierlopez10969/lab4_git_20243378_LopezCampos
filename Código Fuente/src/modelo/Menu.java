@@ -1,6 +1,5 @@
 package modelo;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -26,7 +25,6 @@ public class Menu {
 		String nombreRepositorio = entradaEscaner.nextLine();
 		if (autor.equals("")|| autor.equals("\n")) {autor = "Samuel L Jackson";}
 		if (nombreRepositorio.equals("")|| nombreRepositorio.equals("\n")) {nombreRepositorio = "Mi Repositorio";}
-		//String autor = "Mohamed";String nombreRepositorio = "Ali";
 		//Inicializamos el repostorio
 		repositorio.gitInit(autor, nombreRepositorio);
 		//Ahora inicializamos las ramas , con el master actual
@@ -34,8 +32,6 @@ public class Menu {
         while(x != 15){
         	try{
         	entradaEscaner = new Scanner (System.in);
-    		Thread.sleep(1500);
-    		limpiarPantalla();
             System.out.println("### SIMULACIÓN DE GIT ###\n"
             //+  "Autor : " + repositorio.getAutor()
             //+ "\nNombre Repositorio : "+ repositorio.getNombreRepositorio()
@@ -203,34 +199,5 @@ public class Menu {
         entradaEscaner.close();
 
     }
-    /** 
-     * Metodo paraantener limpia la pantalla
-     * Depende del sistema operativo
-     * @param void
-     */
-	public static void limpiarPantalla(){
-		String sSistemaOperativo = System.getProperty("os.name");
-		//System.out.println("Su sistema operativo es : "+sSistemaOperativo);
-		//SPliteamos el sSistema ya que puede haber más de un tipo de windows o Linux
-        String[] arrOfStr = sSistemaOperativo.split(" ",0);
-        //System.out.println("System Real : " + arrOfStr[0]+ "\n");
-		if (arrOfStr[0].equals("Windows")) { 
-		    System.out.flush(); 
-            System.out.print("\033[H\033[2J");
-             System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-		}else if (arrOfStr[0].equals("Linux")){
-			System.out.print("\033[H\033[2J");  
-			System.out.flush(); 
-		    try {
-		    	Runtime.getRuntime().exec("clear");
-			} catch (IOException e) {
-				System.out.println(e);
-			}
-		}		
-		
-	   }
-
-   public static void LimpiarWindows() throws IOException, InterruptedException {
-        new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-    } 
+ 
 }

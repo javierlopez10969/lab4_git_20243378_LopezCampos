@@ -13,6 +13,12 @@ public class MainVista {
 	 public static Color azul = Color.decode("#006A71");
 	 //Rojo
 	 public static Color rojo = Color.decode("#FF7E67");
+	 //Negro github36,41,46
+	 public static Color negro = new Color(36,41,46);
+	 //GrisGithub
+	 public static Color grisGitHub = Color.decode("#2B3137");
+	 //Celeste github
+	 public static Color celesteGitHub = new Color(250,251,252);
 	 //Fuente
 	 public static Font myFont = new Font("times new romman",Font.ITALIC,15);
 
