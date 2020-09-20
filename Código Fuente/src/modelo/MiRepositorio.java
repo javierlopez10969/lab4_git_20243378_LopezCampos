@@ -36,7 +36,7 @@ public class MiRepositorio implements Cloneable{
 		MiIndex index = new MiIndex();
 		int TamanoWorkspace = repositorio.getWorkspace().getTamano();
 		if (TamanoWorkspace>0) {
-			index.agregarVariosIndex(repositorio.getWorkspace(),TamanoWorkspace);
+			index.agregarVariosIndex(repositorio.getWorkspace(),TamanoWorkspace,null);
 			this.workspace = new MiWorkspace();
 			//Copiamos todo el workspace mediante una función del index
 			this.setWorkspace(index.getIndex());
@@ -82,15 +82,14 @@ public class MiRepositorio implements Cloneable{
 
 	//Metodos del Workspace
 	//Se hacen llamadas a los metodos del workspace
-	public void editarArchivo() throws InterruptedException {workspace.editarArchivo();}
-	public String workspace2String() {return workspace.workspace2String();}
+	public void editarArchivo(int indiceArchivo, String contenido) {workspace.editarArchivo(indiceArchivo, contenido);}
 	public void borrarArchivo() {workspace.borrarArchivo();}
-	public void crearArchivo() throws InterruptedException{workspace.crearArchivo();}
+	public Boolean crearArchivo(String nombreArchivo) {return workspace.crearArchivo(nombreArchivo);}
 	
 	//MetodosIndex
 	
 	//Menú que pregunta que archivos quiere añadir al index
-	public void gitAdd() throws InterruptedException{index.gitAdd(getWorkspace());}
+	public void gitAdd(int modo,int tamano,int[] archivos){index.gitAdd(getWorkspace(),modo,tamano,archivos);}
 	//Llamar al metodo del index para transformarlo a una variable del tipo string
 	public String index2String() {
 		if (index.isEmpty()) {
@@ -158,7 +157,7 @@ public class MiRepositorio implements Cloneable{
 	 */
 	public String gitStatus() {
 		String salidaString = 
-		"\nAutor : " + getAutor()+
+		"Autor : " + getAutor()+
 		"\nNombre Repositorio  : " + getNombreRepositorio() +
 		"\nFecha de creación  : " + getFechaDeCreacion() +
 		"\nRama : " + getBranch() +
@@ -199,7 +198,7 @@ public class MiRepositorio implements Cloneable{
 		   }
 	   }
 	
-	
+	//Remote Status
 	public Boolean remoteActualizadoBoolean() {return remoteRepository.getTamano() == localRepository.getTamano();}
 	//Funciones secretas para el creador para ver los estados de los repositorios
 	public void gitLogRemote() {System.out.println(remoteRepository.gitLog());}
@@ -207,21 +206,35 @@ public class MiRepositorio implements Cloneable{
 	public void mostrarRepositorioRemoto() {System.out.println(remoteRepository.repositorio2String());}
 	
 	//Setters and Getters
+	
+	//Repositorio
 	public String getNombreRepositorio() {return nombreRepositorio;}
 	public void setNombreRepositorio(String nombreRepositorio) {this.nombreRepositorio = nombreRepositorio;}
 	public String getAutor() {return autor;}
 	public void setAutor(String autor) {this.autor = autor;}
 	public String getFechaDeCreacion() {return fechaDeCreacion;}
 	public void setFechaDeCreacion(String fechaDeCreacion) {this.fechaDeCreacion = fechaDeCreacion;}
+	
 	//Repositories
+	
+	//Workspace
 	public void setWorkspace(ListaDeArchivos archivos) {workspace.setArchivos(archivos);;}
 	public MiWorkspace getWorkspace() {return workspace;}
 	public Boolean workspaceEmpty() {return workspace.isEmpty();}
+	public int getNWorkspace() {return workspace.getTamano();}
+	public String workspaceStatus() {return workspace.nombreArchivo2String();}
+	public String workspace2String() {return workspace.workspace2String();}
+	
+	//Index
 	public ListaDeArchivos getIndex() {return index.getIndex();}
+	public String indexStatus() {return index.nombreArchivo2String();}
+	
+	//Local
 	public void setLocalRepository(MiCommit localRepository) {this.localRepository = localRepository;}
 	public void setRemoteRepository(MiCommit remoteRepository) {this.remoteRepository = remoteRepository;}
 	public MiCommit getLocalRepository() {return localRepository;}
 	public MiCommit getRemoteRepository() {return remoteRepository;}
+	
 	//Branches
 	public String getBranch() {return branch;}
 	public void setBranch(String branch) {this.branch = branch;}

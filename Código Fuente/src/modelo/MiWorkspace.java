@@ -16,46 +16,23 @@ public class MiWorkspace implements Cloneable{
 	//Metodos
 	
 	/**
-	 * Este es el bloque de métodos complejos, ya que necesitan una itneracción fuerte con el usuario
-	 * Se podría relacionar a workspace como un intermediario entre los datos almacenadaos y lo que ocurre con ellos
+	 * Este metodo crea un archivo dado un string
 	 * @throws InterruptedException
 	 */
-	public void crearArchivo() throws InterruptedException {
-		@SuppressWarnings("resource")
-		Scanner scanner =  new Scanner(System.in);
-		String nombreArchivo = "Jamon";//Inicializamos la variable nombre, por si no toma las variables de entradas
-		try {
-			nombreArchivo = scanner.nextLine(); 
-		} catch (Exception e) {
-			System.out.println("Un error ha ocurrido " + e);
-		}
-		if (nombreArchivo.equals("") || nombreArchivo.equals("\n")) {
+	public Boolean crearArchivo(String nombreArchivo){
+		if (nombreArchivo.equals("") || nombreArchivo.equals("\n") || nombreArchivo.equals(" ")) {
 			nombreArchivo = "NuevoArchivo.c";
 		}
-		//System.out.println(nombreArchivo);
-		//Inicializamos un archivo a partir del nombre dado
+		System.out.println("Archivo : " + nombreArchivo);
 		Archivo archivo = new MiArchivo(nombreArchivo);
+		archivo.setContenidoString("");
 		//Solo si el archivo no se encuentra en el workspace
 		if (!archivos.isInside(archivo)) {
-		archivos.anadirArchivo(archivo);
-			//Le informamos que el archivo ha sido creado y añadido al workspace y le preguntamos si quiere editarlo
-			System.out.println("Archivo : " + nombreArchivo + " añadido a workspace\n"
-			+ "Desea editarlo? si "+ "\\" + " no \n");
-			String respuesta = "YES";
-			try {
-				respuesta = scanner.nextLine(); 
-			} catch (Exception e) {
-				System.out.println("F");
-			}
-			if (respuesta.equals("si")||respuesta.equals("YES")|| respuesta.equals("Si")
-			|| respuesta.equals("oui")|| respuesta.equals("Yes") ||respuesta.equals("1")) {
-				System.out.println("Editar el archivo \n");
-				archivo.editarArchivo();
-			}else {
-				System.out.println("No editar el archivo \n");
-			}
+			archivos.anadirArchivo(archivo);
+			return true;
 		}else {
 			System.out.println("Hay un archivo con el mismo nombre, no procede a crear nuevo archivo\n");
+			return false;
 		}		
 	}
 	
@@ -83,34 +60,17 @@ public class MiWorkspace implements Cloneable{
 	}
 
 	/**
-	 * Metodo, que muestra un menú de interacción, para la edición de una archivo
-	 * @throws InterruptedException
+	 * Metodo, que permite editar un archivo
 	 */
-	public void editarArchivo() throws InterruptedException {
+	public void editarArchivo(int indiceArchivo,String contenido) {
 		//Antes de editar preguntamos si el workspace no esta vacío
 		if (!isEmpty()) {
-			//Primero mostramos todo el workspace
-			System.out.println(workspace2String());
-			//Ahora le preguntamos que archivo quiere editar
-			System.out.println("Ingrese el indice del archivo que quiere editar:");
-			int indiceArchivo = 0;
-			@SuppressWarnings("resource")
-			Scanner scanner =  new Scanner(System.in);
-			try {
-				indiceArchivo = scanner.nextInt(); 
-			} catch (Exception e) {
-				System.out.println("F");
-			}
-			//System.out.println(indiceArchivo);
-			//Procedemos a preguntamos si podemos editar el archivo
 			if (archivos.getArchivoN(indiceArchivo)!= null) {
 				Archivo archivo  = archivos.getArchivoN(indiceArchivo);
-				archivo.editarArchivo();
+				archivo.setContenidoString(contenido);
 			}else {
 				System.out.println("Indice de archivo inválido\n");
 			}
-		}else {
-			System.out.println("No se puede editar, ya que el workspace se encuentra vacío\n");
 		}
 	}
 	
@@ -120,12 +80,14 @@ public class MiWorkspace implements Cloneable{
 	//Mostrar todo el workspace
 	public String workspace2String() {return archivos.archivos2String();}
 	public String nombreFecha2String() {return archivos.nombreFechas2String();}
+	public String nombreArchivo2String() {return archivos.nombreArchivo2String(0);}
 	//El workspace se encuentra vacío
 	public boolean isEmpty() {return archivos.isEmpty();}
 
 	
 	//Setters and getters
 	public Archivo getArchivoN(int n) {return archivos.getArchivoN(n);}
+	public Archivo getArchivoNCopy(int n) {return archivos.getArchivoNCopy(n);}
 	public void setArchivos(ListaDeArchivos archivos) {
 		//Actualizamos tanto tamaño
 		this.archivos.setTamano(archivos.getTamano());
@@ -133,4 +95,8 @@ public class MiWorkspace implements Cloneable{
 		this.archivos = archivos;}
 	public ListaDeArchivos getArchivos() {return archivos;}
 	public int getTamano() {return archivos.getTamano();}
+	
+	public String[] getArregloNombre() {return archivos.nombreArchivo2StringArray();}
+	
+	
 }

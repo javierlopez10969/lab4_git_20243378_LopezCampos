@@ -106,7 +106,7 @@ public class ListaDeArchivos {
 			nodoArchivo puntero =  getCabeza();
 			String salidaString = "";
 			int i = 0 ;
-			while (puntero != null) {
+			while (puntero != null && i < getTamano()) {
 				salidaString = salidaString +"i :"+ i + ".-\n";
 				salidaString = salidaString + puntero.myArchivo.Archivo2String();
 				puntero = puntero.getSiguiente();
@@ -138,12 +138,79 @@ public class ListaDeArchivos {
 		}
 	}
 	
+	public String nombreArchivo2String(int zona) {
+		if (!isEmpty()) {
+			String salidaString ="";
+			nodoArchivo puntero =  getCabeza();
+			int i = 0 ;
+			while (puntero != null) {
+				salidaString = salidaString + i+ "  .-";
+				salidaString = salidaString + puntero.myArchivo.getNombre()+"\n";
+				puntero = puntero.getSiguiente();
+				i++;
+			}
+			return (salidaString +"\n");
+		}else {
+			if (zona == 0) {
+				return ("Workspace vacío\n");
+			}
+			if (zona == 1) {
+				return ("Index vacío\n");
+			}if (zona == 2) {
+				return ("Local vacío\n");
+			}
+			return ("Remote vacío\n");
+			
+		}
+	}
+	
+	public String[] nombreArchivo2StringArray() {
+		String[] salidaString = new String [getTamano()];
+		if (!isEmpty()) {
+			nodoArchivo puntero =  getCabeza();
+			int i = 0 ;
+			while (puntero != null && i<getTamano()) {
+				salidaString[i]=  puntero.myArchivo.getNombre();
+				puntero = puntero.getSiguiente();
+				i++;
+			}
+			return salidaString;
+		}else {
+			return (null);
+		}
+	}
+	
+	
+	
+	public Archivo getArchivoN(int n){
+		//Si el n ingresado no supera el tamaño total de archivos
+		if (n > tamano || n < 0) {
+			System.out.println("El indice excede al limite de archivos");
+			return null;
+		}else{
+			nodoArchivo puntero =  getCabeza();
+			int i = 0 ;
+			//Mientras el puntero no sea nulo
+			while (i < n && puntero != null) {
+				System.out.println(i+".-");
+				puntero = puntero.getSiguiente();
+				i++;
+			}if (i!= n) {
+				System.out.println("No hay archivos disponibles");
+				return null;
+			}else {
+				return puntero.myArchivo;
+			}
+		}
+	}
+	
+	
 	/**
 	 * Metodo que dado un indice n, devuelva el archivo correspondiente en la lista
 	 * @param n, indice donde se encuentra el archivo
 	 * @return Archivo, archivo con el indice || null si el indice supera los limites
 	 */
-	public Archivo getArchivoN(int n){
+	public Archivo getArchivoNCopy(int n){
 		//Si el n ingresado no supera el tamaño total de archivos
 		if (n > tamano || n < 0) {
 			System.out.println("El indice excede al limite de archivos");
@@ -164,7 +231,6 @@ public class ListaDeArchivos {
 				Archivo archivo = new MiArchivo(puntero.myArchivo.getNombre());
 				archivo.setFechaCreacion(puntero.myArchivo.getFechaCreacion());
 				archivo.setContenidoString(puntero.myArchivo.getContenidoString());
-				archivo.setContenido(puntero.myArchivo.getContenido().copiarContenido());
 				String fechaString = puntero.myArchivo.getFechaUltimaModificacion();
 				//System.out.println("Fecha de modificación Original : " +fechaString +"\n");
 				archivo.setFechaUltimaModificacion(fechaString);
@@ -261,7 +327,8 @@ public class ListaDeArchivos {
 		}
 		//Si se completo todo, y por lo menos hay un archivo distinto
 		return false;
-		}
+	}
+	
 	
 	//Esta vacía la lista de archivos
 	public Boolean isEmpty() {return tamano == 0;}

@@ -2,6 +2,8 @@ package vista;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 
 public class MainVista {
 	 //PALLETE
@@ -21,5 +23,13 @@ public class MainVista {
 	 public static Color celesteGitHub = new Color(250,251,252);
 	 //Fuente
 	 public static Font myFont = new Font("times new romman",Font.ITALIC,15);
+
+	 public static ImageIcon gato = new ImageIcon("vista/cat.png");
+	 
+	 
+	 
+	 public static ImageIcon createIcon(Image imagen) {
+		return new ImageIcon(imagen);
+	}
 
 }

@@ -12,40 +12,70 @@ Requerimientos Funcionales Obligatorios.
 
 1. Clases y estructuras que forman el programa (1 pto) 1
 
-2. Funcionalidades Mínimas
+Implementar modelo orientado a objetos de la simulación de git. Esto debe incluir al
+menos las siguientes entidades: Archivo de texto plano, Commit, Zonas de trabajo y
+repositorio. Puede tomar como referencia las entidades creadas en el Laboratorio 3, o
+bien implementar alguna integración con los Laboratorios 1 o 2 (ver Requisitos
+Funcionales Extra). (1 pto)2. Su programa debe contar con las siguientes funcionalidades mínimas (basadas en el
+sistema de control de versiones git): Crear un nuevo archivo en el workspace, git init, git
+add, git commit, git pull, git push. (1,5 pts)
+3. Implementar una funcionalidad que permita obtener el estado de cada Zona de trabajo,
+mostrando una lista con los archivos incluidos (en el caso de Workspace e Index) o los
+últimos 3 commits (en el caso de Local Repository y Remote Repository). (0,5 pts)
+4. Implementar las funcionalidades indicadas en los Requisitos Funcionales mencionados
+anteriormente en una aplicación con entorno gráfico, utilizando elementos propios de la
+biblioteca de entorno gráfico seleccionada y separando las clases de modelo respecto
+de las de la vista. Puede utilizar el siguiente esquema como referencia para construir su
+interfaz gráfica de usuario: (1 pts)
 
-a. Archivo de Texto Plano                              1
+Requerimientos extra 
 
-b. Commit:                                             1
+1. Implementar cualquiera de los Requerimientos Extra indicados en el Laboratorio 3,
 
-c. Zonas de trabajo:                                   1
-
-d. Repositorio:                                        1
-
-a. gitInit:                                            1
-
-b. gitAdd:                                             1
-
-c. gitCommit:                                          1
-
-d. gitPush:                                            1
-
-e. gitPull:                                            1
-
-f. gitStatus:                                          1
+a. git log                                      1 
+b. git branch                                   1
+c. git checkout                                 1
+d. git merge                                    1
 
 
-3. Interacción con el usuario (0,5 pto):               1
+2. Implementar un sistema de persistencia de las Zonas de trabajo mediante lectura y
+escritura de archivos 
 
-4. Requerimientos extra 
+PUNTAJE  :  0
 
-1. gitLog (1 pto) :                                    1
 
-2. gitBranch (2 pto):                                  1
+3. Integrar la solución orientada a objetos con la solución bajo paradigma lógico a través de
+la integración con P# 
 
-3. gitCheckout (1 pto):                                1
+PUNTAJE  :  0
 
-4. gitMerge (1 pto):                                   0
+
+4. Integrar la solución orientada a objetos con la solución bajo paradigma funcional a través
+de la integración con Iron Scheme
+
+PUNTAJE  :  0
+
+5. De forma alternativa a la integración directa entre C# y Scheme usando IronScheme, se
+puede reemplazar por integración a través de Web Services + REST directamente
+implementado en Dr. Racket ( http://docs.racket-lang.org/more/index.html ).
+
+PUNTAJE  :  0
+
+
+6. De forma alternativa a la integración directa entre C# y SWI Prolog usando P#, se puede
+reemplazar por integración a través de Web Services directamente implementado en
+Swi-Prolog ( http://www.swi-prolog.org/howto/http/ ) (1,5 pts) .
+
+PUNTAJE  :  0
+
+7. También se consideran funcionalidades/características extras planteadas por el
+estudiante, sin embargo estas deben ser consultadas y aprobadas de manera formal por
+el profesor. Todo requerimiento extra no descrito en este documento puede ser
+considerado como bonificación a la nota, esto dependerá de la dificultad y atractivo de la
+funcionalidad. Los puntos alcanzados mediante funcionalidades extra solo se consideran
+solamente si los requisitos mínimos para obtener un 4.0 son completados
+satisfactoriamente.
+
 
 
 Requerimientos No Funcionales obligatorios. 
@@ -89,4 +119,4 @@ PUNTAJE : 1
 8. (1 pto) Historial de trabajo en GitHub 
 
 PUNTAJE : 1
-
+t

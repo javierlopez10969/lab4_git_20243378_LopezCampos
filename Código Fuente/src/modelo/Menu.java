@@ -56,11 +56,6 @@ public class Menu {
             x = entradaEscaner.nextInt();
             //System.out.println ("Entrada recibida por teclado es: \"" + x +"\n");
             switch(x){
-            	//Add
-                case 1:{
-                    repositorio.gitAdd();
-                    break;
-                }
                 //Commit
                 case 2:{
                     System.out.println("Commit\n");
@@ -91,14 +86,14 @@ public class Menu {
                 case 5:{
                     System.out.println("Status\n");
                     System.out.println(repositorio.gitStatus()); 
-                    Thread.sleep(4000);
+                    //Thread.sleep(4000);
                     break;
                 }
                 //Crear archivo
                 case 6:{
                 	System.out.println("Crear archivo\n");
                 	System.out.println("Ingrese el nombre de su archivo a crear : ");
-                    repositorio.crearArchivo();
+                    //repositorio.crearArchivo(String nombreArchivo);
                     break;
                 }
                 //Mostrar el workspace actual con todo
@@ -114,7 +109,6 @@ public class Menu {
                 //Editar archivo
                 case 8:{
                 	System.out.println("Editar Archivo\n");
-                	repositorio.editarArchivo();
                 	break;
                 }
                 //Borrar archivo
