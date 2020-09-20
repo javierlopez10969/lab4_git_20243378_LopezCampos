@@ -1,5 +1,4 @@
 package modelo;
-import java.util.Scanner;
 
 /**
  *  Clase encargada de manejar los dos repositorios, local como remoto
@@ -16,7 +15,6 @@ public class MiCommit implements Cloneable {
 	private Commit cima = null ;
 	//Total de commits
 	private int tamano ;
-	private Scanner scanner;
 	
 	
 	/**
@@ -98,12 +96,15 @@ public class MiCommit implements Cloneable {
 			//Creamos un nuevo commit a partir del index actual
 			Commit nodo = new Commit(index,autor,comentrario);
 			insertarCommit(nodo);
+			index.limpiarIndex();
 			System.out.println("Commit creado\n");
 			return true;
-		}else {
-			System.out.println("El index entregado no posee nuevos cambios con respecto al index anterior\n");
-			return false;
 		}
+		System.out.println("El index entregado no posee nuevos cambios con respecto al index anterior\n");
+		index.limpiarIndex();
+		return false;
+		
+		
 	}
 	
 	
@@ -115,7 +116,7 @@ public class MiCommit implements Cloneable {
 	 * */
 	public void gitPush(MiCommit localRepository) {
 		//Solo si el tamaño de local repository es distinto que el del repositorio actual
-		if (getTamano() != localRepository.getTamano()) {
+		if (this.getTamano() != localRepository.getTamano()) {
 			System.out.println("Pusheando ...\n");
 			//Se actualiza el local repository asignandole el valor de la cima de local repository
 			this.setCima(localRepository.getCima());
@@ -133,42 +134,26 @@ public class MiCommit implements Cloneable {
 	 * @param localRepositoy
 	 */
 	public ListaDeArchivos gitPull(MiCommit localRepository) {
-		scanner = new Scanner(System.in);
-		String respuestaString = "";
 		//Solo es posible si el remote se encuentra actualizado
 		if (this.getTamano() < localRepository.getTamano()) {
 			System.out.println("El remote se encuentra desactualizado, ¿quiere proceder a transformar el local y el workspace al ultimo commit en remote repository?\n");
-			try {
-				respuestaString = scanner.nextLine();
-			} catch (Exception e) {
-				System.out.println("Ha ocurrido un error : "+ e);
-			}
-			if (respuestaString.equals("Si") || respuestaString.equals("si") || respuestaString.equals("1") || respuestaString.equals("yes") || 
-				respuestaString.equals("yup") || respuestaString.equals("1")) {
-				//Seteamos una nueva Cima de Local Repository
-				localRepository.setCima(this.getCima());
-				//Y un nuevo tamaño para local repository
-				localRepository.setTamano(this.getTamano());
-				return this.getCima().getWorkspace();
-			}else {
-				System.out.println("No hacer Pull\n");
-				return null;
-			}
+	
+			//Seteamos una nueva Cima de Local Repository
+			localRepository.setCima(this.getCima());
+			
+			//Y un nuevo tamaño para local repository
+			localRepository.setTamano(this.getTamano());
+			
+			//Devolvemos el nuevo espacio de tranajo
+			return this.getCima().getWorkspace();
+
 		}
 		else if (getTamano() == localRepository.getTamano()){
 			System.out.println("El remote se encuentra actualizado, ¿quiere proceder a redifinir el workspace ?\n");
-			try {
-				respuestaString = scanner.nextLine();
-			} catch (Exception e) {
-				System.out.println("Ha ocurrido un error : "+ e);
-			}
-			if (respuestaString.equals("Si") || respuestaString.equals("si") || respuestaString.equals("1") || respuestaString.equals("yes") || 
-				respuestaString.equals("yup") || respuestaString.equals("1")) {
-				//Obtenemos el ultimo workspace del repositorio
-				return this.getCima().getWorkspace();
-			}else {
-				return null;
-			}
+
+			//Devolvemos el nuevo espacio de tranajo
+			return this.getCima().getWorkspace();
+				
 		}else {
 			return null;
 		}
@@ -233,6 +218,30 @@ public class MiCommit implements Cloneable {
 			//Mientras el puntero sea un valor existente y además el indice sea menor a 5
 			while (puntero!=null && i < 5) {
 				salidaString = salidaString + puntero.commit2String() + "\n";
+				puntero = puntero.getSiguiente();
+				i ++ ;
+			}
+			System.out.println("Sus últimos " + i +" commits son  : \n");
+		}else {
+			salidaString = "Repositorio vacío";
+		}
+		return salidaString;
+	}
+	
+	/**
+	 *  gitLog3
+	 * Esta funcionalidad debe mostrar una lista con los últimos 3 commits del local o el  por medio de un string
+	 * (indicando fecha, mensaje descriptivo y archivos añadidos). Si hay
+	 * menos de 5 commits, muestra todos los que estén disponibles.
+	 * */
+	public String repositoryStatus() {
+		String salidaString = "";
+		Commit puntero = getCima();
+		int i = 0;
+		if (puntero!=null) {
+			//Mientras el puntero sea un valor existente y además el indice sea menor a 5
+			while (puntero!=null && i < 3) {
+				salidaString = salidaString + puntero.commit2String() + "\n\n";
 				puntero = puntero.getSiguiente();
 				i ++ ;
 			}

@@ -3,6 +3,7 @@ package vista;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 public class MainVista {
 	 //PALLETE
@@ -27,8 +28,83 @@ public class MainVista {
 	 
 	 public static ImageIcon error = new ImageIcon("vista/error.png");
 	 
+	 public static ImageIcon branch = new ImageIcon("vista/branch.png");
+	 
+	 /**
+	  * Mostrar mensaje en interfaz dependiendo del tipo del mensaje
+	  * @param mensaje
+	  * @param tipo
+	  * 0 error
+	  * 1 succesful
+	  * 3 opción aún no disponible
+	  * 4 YES_NO option
+	  */
+	public static String mostrarMensaje(String mensaje,int tipo) {
+		if (tipo == 0) {
+			JOptionPane.showMessageDialog(null,mensaje,"Bad Ending",JOptionPane.PLAIN_MESSAGE,error);
+			return null;
+		}else if (tipo==1) {
+			JOptionPane.showMessageDialog(
+			null,
+			mensaje,
+			"Successful",
+			JOptionPane.PLAIN_MESSAGE,
+			gato);
+			return null;
+		}else if (tipo == 2) {
+			String respuesta =(String)JOptionPane.showInputDialog(
+					null,
+					mensaje,
+					"Dialogo",
+					JOptionPane.OK_OPTION,
+					MainVista.gato,
+					null,
+					"Archivito.py");
+			return respuesta;
+		}else if (tipo==3) {
+			JOptionPane.showMessageDialog(
+			null,"Opción no disponible aún",
+			"Bad Ending",
+			JOptionPane.PLAIN_MESSAGE,
+			error);
+			return null;
+		}else if(tipo==4) {
+			int respuestaInt = JOptionPane.showConfirmDialog(
+			null,
+			mensaje,
+			"Edición de Archivo", 
+			JOptionPane.YES_NO_OPTION,
+			JOptionPane.QUESTION_MESSAGE,
+			gato);
+			String respuestaString = Integer.toString(respuestaInt);
+			return respuestaString;
+		}else if (tipo == 5) {
+			String respuesta =(String)JOptionPane.showInputDialog(
+					null,
+					mensaje,
+					"Creando rama",
+					JOptionPane.OK_OPTION,
+					branch,
+					null,
+					"Nueva Rama");
+			return respuesta;
+		}return null;
+	}
+	
+	public static String mostrarMensaje(String mensaje,String ventana,int tipo) {
+		if (tipo == 2) {
+			String respuesta =(String)JOptionPane.showInputDialog(
+					null,
+					mensaje,
+					ventana,
+					JOptionPane.OK_OPTION,
+					gato,
+					null,
+					"Archivito.py");
+			return respuesta;
+		}return null;
+	}
+			
+	}
 	 
 	 
-
-
-}

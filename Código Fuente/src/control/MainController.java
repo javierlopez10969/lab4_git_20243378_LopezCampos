@@ -5,8 +5,6 @@ import java.util.Arrays;
 
 import javax.swing.JOptionPane;
 
-
-
 import modelo.Branches;
 import modelo.MiRepositorio;
 import vista.Editor;
@@ -37,7 +35,7 @@ public class MainController {
 					if (reply == JOptionPane.YES_OPTION) {
 					    gitInit();
 					} else {
-						mostrarMensaje("Ingrese sus valores", 0);
+						MainVista.mostrarMensaje("Ingrese sus valores", 0);
 					}
 				}
 				else {
@@ -73,23 +71,14 @@ public class MainController {
 				//Comandos
 //REINIT
 				if (e.getSource()==Ventana.reInit) {
-					int opcion = JOptionPane.showConfirmDialog(
-							null,
-							"¿Desea reiniciar el repositorio?",
-							"Cambiar de autor",
-							JOptionPane.YES_NO_OPTION,
-							JOptionPane.QUESTION_MESSAGE,
-							MainVista.gato);
+					String opcionString =  MainVista.mostrarMensaje("¿Desea reiniciar el repositorio?", 4);
+					int opcion = Integer.valueOf(opcionString);
 					if (opcion== 0 ) {
 						System.out.println("Opción : "+ opcion);
-						String autorString = (String)JOptionPane.showInputDialog(
-						null,
+						String autorString = MainVista.mostrarMensaje(
 						"Ingrese su nuevo autor",
 						"Nuevo autor",
-						JOptionPane.QUESTION_MESSAGE,
-						MainVista.gato,
-						null,
-						"Commit");
+						2);
 						if (autorString!=null) {
 							String repositorioString = (String)JOptionPane.showInputDialog(
 							null,
@@ -109,13 +98,13 @@ public class MainController {
 								ventana.repositorioLabel.setText(repositorio.getNombreRepositorio());
 								ventana.ramaLabel.setText("Branch : " + repositorio.getBranch());
 							}else {
-								mostrarMensaje(null, 0);
+								MainVista.mostrarMensaje(null, 0);
 							}
 						}else {
-							mostrarMensaje(null, 0);
+							MainVista.mostrarMensaje(null, 0);
 						}
 					}else {
-						mostrarMensaje("No reiniciar repositorio", 0);
+						MainVista.mostrarMensaje("No reiniciar repositorio", 0);
 					}
 					//Desea reincializar todo desede 0 ?
 					
@@ -127,7 +116,7 @@ public class MainController {
 					System.out.println("Add\n");
 					if (repositorio.workspaceEmpty()) {
 						System.out.println("Workspace Empty\n");
-						mostrarMensaje("Workspace Vacío, cree un archivo", 0);
+						MainVista.mostrarMensaje("Workspace Vacío, cree un archivo", 0);
 					}
 					else {
 						System.out.println("Add opciones\n");
@@ -155,10 +144,12 @@ public class MainController {
 						}
 						if (seleccion==2) {
 							System.out.println("Git add varios\n");
-							mostrarMensaje("Opción no disponible aún",3);
+							MainVista.mostrarMensaje("Opción no disponible aún",3);
 							//Por hacer una lista desplegable
 						}
-					}			
+					}		
+					Ventana.status.setText(repositorio.indexStatus());
+					System.out.println(repositorio.index2String());
 				}
 //ADD---------------------------------------------------------------------------------------------
 				
@@ -169,12 +160,13 @@ public class MainController {
 					System.out.println("Commit\n");
 					if (repositorio.getIndex().isEmpty()) {
 						System.out.println("No se puede hacer commit, Index vacío");
-						mostrarMensaje("No se puede hacer commit, Index vacío",0);
-					}
-					else if (!repositorio.getLocalRepository().isEmpty() && repositorio.getLocalRepository().existenCambios(repositorio.getIndex())) {
-						mostrarMensaje("El index entregado no posee nuevos cambios con respecto al index anterior",0);
+						MainVista.mostrarMensaje("No se puede hacer commit, Index vacío",0);
+					}else if (!repositorio.getLocalRepository().existenCambios(repositorio.getIndex())) {						
+						MainVista.mostrarMensaje("El index entregado no posee nuevos cambios con respecto al index anterior",0);
+						MainVista.mostrarMensaje("Index Vaciado",1);
+						repositorio.limpiarIndex();
 					}else {
-						//Necesitamos el comentario a poner en el commit y el autor
+						//Necesitamos el comentario a poner en el commit y el autor responsable del commit
 						String autor = repositorio.getAutor();
 						String comentario = null;
 						
@@ -188,54 +180,55 @@ public class MainController {
 								null,
 								"Commit");
 						
-						//SOlO si el comentario es distinto de null
+						//SOlO si el comentario es distinto de null pedimos el autor
 						if (comentario!=null) {						
-						System.out.println("Comentario : "+ comentario + "\n");
-						
-						
-						//Preguntamos si quiere cambiar o conservar el autor
-						System.out.println("Desea  usar el autor predeterminado o cambiar el nombre del autor\n"
-								+ "1.- Autor Predeterminado\n"
-								+ "2.- Autor Distinto\n");
-						
-						int opcion = JOptionPane.showConfirmDialog(
-								null,
-								"¿Desea cambiar de Autor?",
-								"Cambiar de autor",
-								JOptionPane.YES_NO_OPTION,
-								JOptionPane.QUESTION_MESSAGE,
-								MainVista.gato);
-						
-						
-						if (opcion==JOptionPane.YES_OPTION) {
-							autor =(String)JOptionPane.showInputDialog(
+							System.out.println("Comentario : "+ comentario + "\n");
+														
+							//Preguntamos si quiere cambiar o conservar el autor
+							System.out.println("Desea  usar el autor predeterminado o cambiar el nombre del autor\n"
+									+ "1.- Autor Predeterminado\n"
+									+ "2.- Autor Distinto\n");
+							
+							int opcion = JOptionPane.showConfirmDialog(
 									null,
-									"Ingrese el nombre de su archivo",
-									"Creando Archivo",
-									JOptionPane.OK_OPTION,
-									MainVista.gato,
-									null,
-									"Archivito.py");
-							if (autor==null){
-								autor  = "Ryan Gosling";
+									"¿Desea cambiar de Autor?",
+									"Cambiar de autor",
+									JOptionPane.YES_NO_OPTION,
+									JOptionPane.QUESTION_MESSAGE,
+									MainVista.gato);
+							
+							//Le pedimso el nombre de su autor
+							if (opcion==JOptionPane.YES_OPTION) {
+								autor =(String)JOptionPane.showInputDialog(
+										null,
+										"Ingrese el nombre de su nuevo autor",
+										"Nuevo autor",
+										JOptionPane.OK_OPTION,
+										MainVista.gato,
+										null,
+										"Archivito.py");
+								if (autor==null){
+									autor  = "Ryan Gosling";
+									JOptionPane.showMessageDialog(null,"Conservar autor","Mismo autor",JOptionPane.PLAIN_MESSAGE,MainVista.gato); 
+								}
+							}
+							
+							else {
 								JOptionPane.showMessageDialog(null,"Conservar autor","Mismo autor",JOptionPane.PLAIN_MESSAGE,MainVista.gato); 
 							}
-						}
-						
-						else if(opcion == JOptionPane.NO_OPTION || opcion== JOptionPane.CLOSED_OPTION) {
-							JOptionPane.showMessageDialog(null,"Conservar autor","Mismo autor",JOptionPane.PLAIN_MESSAGE,MainVista.gato); 
-						}
-						
-						
-						//PROCEDEMOS A CREAR EL COMMIT
-						Boolean confirmacion= repositorio.gitCommit(autor,comentario);
-						if (confirmacion==true) {
-							mostrarMensaje("Commit Creado",1);
+							
+							
+							//PROCEDEMOS A CREAR EL COMMIT
+							Boolean confirmacion= repositorio.gitCommit(autor,comentario);
+							
+							if (confirmacion==true) {
+								MainVista.mostrarMensaje("Commit Creado",1);
+								MainVista.mostrarMensaje("Index Vaciado",1);
+							}else {
+								MainVista.mostrarMensaje("No se han encontrado cambios",0);
+							}
 						}else {
-							mostrarMensaje("Ha ocurrido un error",0);
-						}
-						}else {
-							mostrarMensaje("No crear commit",0); 
+							MainVista.mostrarMensaje("No crear commit",0); 
 						}
 						
 					}
@@ -247,16 +240,16 @@ public class MainController {
 					System.out.println("Push\n");
 					if (repositorio.getLocalRepository().isEmpty()) {
 						System.out.println("Local repositroy vacío, no procede hacer push\n");
-						mostrarMensaje("Local repositroy vacío, no procede hacer push", 0);
+						MainVista.mostrarMensaje("Local repositroy vacío, no procede hacer push", 0);
 					}
 					else if (repositorio.remoteActualizadoBoolean()){
 						System.out.println("Remote repositroy se encuentra actualizado, no procede hacer push\n");
-						mostrarMensaje("Remote repositroy se encuentra actualizado, no procede hacer push",0);
+						MainVista.mostrarMensaje("Remote repositroy se encuentra actualizado, no procede hacer push",0);
 					}
 					else {
 						System.out.println("Making push ...\n");
-						mostrarMensaje("Actualizando repositorio remoto", 1);
-						
+						MainVista.mostrarMensaje("Actualizando repositorio remoto", 1);
+						repositorio.gitPush();					
 					}
 				}
 //PUSH-------------------------------------------------------------------------------------------------
@@ -266,15 +259,55 @@ public class MainController {
 				
 				if(e.getSource() == Ventana.pull) {
 					System.out.println("Pull\n");
-					mostrarMensaje(null,3);
+					if (repositorio.getRemoteRepository().isEmpty()) {
+						System.out.println("Remote repository vacío no procede hacer pull\n");
+						MainVista.mostrarMensaje("Remote repository vacío no procede hacer pull\n", 1);
+					}
+					else {
+						
+						//Solo es posible si el remote se encuentra actualizado
+						if (repositorio.getRemoteRepository().getTamano() < repositorio.getLocalRepository().getTamano()) {
+							System.out.println("El remote se encuentra desactualizado, ¿quiere proceder a transformar el local y el workspace al ultimo commit en remote repository?\n");
+							String respuestaString = MainVista.mostrarMensaje(
+							"El remote se encuentra desactualizado, ¿quiere proceder a transformar el local y el workspace al ultimo commit en remote repository?\n"
+							, 4);
+							System.out.println("Respuesta : " + respuestaString);
+							if (respuestaString.equals("0") ) {
+								MainVista.mostrarMensaje("Making Push",1);
+								repositorio.gitPull();
+							}else {
+								System.out.println("No hacer Pull\n");
+								MainVista.mostrarMensaje("No hacer pull",0);
+							}
+						}
+						else if (repositorio.getRemoteRepository().getTamano() == repositorio.getLocalRepository().getTamano()){
+							System.out.println("El remote se encuentra actualizado, ¿quiere proceder a redifinir el workspace ?\n");
+							String respuestaString = MainVista.mostrarMensaje(
+									"El remote se encuentra actualizado, ¿quiere proceder a redifinir el workspace ?\n"
+									, 4);
+							System.out.println("Respuesta : "+respuestaString);
+							if (respuestaString.equals("0") ) {
+								MainVista.mostrarMensaje("Making Push",1);
+								repositorio.gitPull();
+							}else {
+								System.out.println("No hacer Pull\n");
+								MainVista.mostrarMensaje("No hacer pull",0);
+							}
+						}		
+					}
+					Ventana.status.setText("Arhivos actuales en el workspace : \n\n" +repositorio.workspaceStatus());
 				}
 				
 				
 //PULL-------------------------------------------------------------------------------------------------
+//LOG--------------------------------------------------------------------------------------------------
+				//Mostrar los ultimos 5 commits
+				
 				if(e.getSource() == Ventana.log) {
 					System.out.println("Log\n");
-					mostrarMensaje(null,3);
+					
 					//Mostrar una opción log remote o local
+					
 					String[] opciones = {"Log Local","Log Remoto"};
 					Object seleccion = JOptionPane.showInputDialog(
 							   null,//unComponentePadre,
@@ -287,71 +320,180 @@ public class MainController {
 					System.out.println("El usuario eligió : " + seleccion);
 					if (seleccion!=null) {
 						if (seleccion.equals("Log Local")) {
-							Ventana.status.setText(repositorio.gitLog());
+							int i;
+							if (repositorio.getLocalRepository().getTamano() <=5) {
+								i =repositorio.getLocalRepository().getTamano() ;
+							}else {
+								i = 5;
+							}
+							
+							
+							if (repositorio.getLocalRepository().getTamano()!=0) {
+								Ventana.status.setText("Los "+ i + " commits de local repository son"+repositorio.gitLog());
+							}else {
+								Ventana.status.setText("Local repository vacío :(");
+							}
 						}else if (seleccion.equals("Log Remoto")) {
-							Ventana.status.setText(repositorio.gitLogRemote());
+							int i;							
+							if (repositorio.getRemoteRepository().getTamano() <=5) {
+								i =repositorio.getRemoteRepository().getTamano() ;
+							}else {
+								i = 5;
+							}
+							
+							
+							if (repositorio.getRemoteRepository().getTamano() !=0) {
+								Ventana.status.setText("Los "+ i + " commits de remote repository son" + repositorio.gitLogRemote());
+							}else {
+								Ventana.status.setText("Remote repository vacío :(");
+							}
 						}
 					}else {
-						mostrarMensaje("Error",0);
+						MainVista.mostrarMensaje("Error",0);
 					}
-					
-					
 				}
+//LOG-------------------------------------------------------------------------------------------------
+//BRANCH----------------------------------------------------------------------------------------------
 				if(e.getSource() == Ventana.branch) {
 					System.out.println("Branch\n");
-					JOptionPane.showMessageDialog(null, "Add aún no disponible");
+					System.out.println("¿Cuál es el nombre de su rama nueva a crear a partir de master ? \n");
+					String ramaString = MainVista.mostrarMensaje(
+							"Ingrese su nueva rama a crear",
+							5);
+					if (ramaString!=null) {
+						if (ramaString.equals("")){
+							ramaString = "Mi Rama";
+						}
+						//Si el nombre nuevo no se encuentra ya dentro de una de las ramas
+						if (!branches.isInside(ramaString)) {	
+							String autorString =MainVista.mostrarMensaje("¿Desea cambiar de autor?", 4);
+							System.out.println("Respuesta : " + autorString);
+							if (autorString.equals("0")) {
+								autorString = MainVista.mostrarMensaje("Ingrese su autor","Nuevo autor",2);
+								if (autorString == null) {
+									MainVista.mostrarMensaje("Se arrepintió de cambiar el autor?", 0);
+									autorString = "Ryan Gosling";
+								}else if (autorString.equals("")) {
+									autorString = "Ryan Gosling";
+								}else {
+									System.out.println("Nuevo autor : " +autorString);
+								}
+							}else {
+								autorString = repositorio.getAutor();
+							}
+							System.out.println("\nEl autor de la rama es : " + autorString+"\n");
+							repositorio = branches.gitBranch(ramaString,autorString);
+							MainVista.mostrarMensaje("Nueva rama creada con exito", 1);
+							
+							Ventana.status.setText(
+									"\nAutor : " + repositorio.getAutor()+
+									"\nRepo  : " + repositorio.getNombreRepositorio()+
+									"\nRama  : " + repositorio.getBranch()+
+									"\n\nTotal de ramas : \n" + branches.branches2String());
+							ventana.autorLabel.setText(repositorio.getAutor());
+							ventana.ramaLabel.setText(repositorio.getBranch());
+						}else {
+							MainVista.mostrarMensaje("Ya existe una rama con ese nombre", 0);
+						}
+					}else {
+						MainVista.mostrarMensaje("No crear rama", 0);
+					}
 				}
+//BRANCH-----------------------------------------------------------------------------------------------
+//CHECKOUT---------------------------------------------------------------------------------------------
 				if(e.getSource() == Ventana.checkout) {
 					System.out.println("Chekcout\n");
-					JOptionPane.showMessageDialog(null, "Add aún no disponible");
+					if (branches.getTamano()!=1) {
+						int branch =  listaDeRamas();
+						if (branch==-1 || branch > branches.getTamano() ) {
+							MainVista.mostrarMensaje("No check out",0);
+						}else {
+							repositorio = branches.gitCheckOut(branch);
+							System.out.println("Cambiado a : " + repositorio.getBranch() );
+							MainVista.mostrarMensaje("Ahora se encuentra en : "+ repositorio.getBranch(),1);
+							Ventana.status.setText("Rama  : " + repositorio.getBranch());
+						}
+					}else {
+						MainVista.mostrarMensaje("Solo hay una rama, no es posible hace el checkout",0);
+					}
+
 				}
+				
+//CHECKOUT----------------------------------------------------------------------------------------------
 				
 				
 				
 				
 				//Status de zonas de trabajo
 				
+				
+				
+				
 //WORKSPACE STATUS-----------------------------------------------------------------------------------------
 				if(e.getSource() == Ventana.workspace) {
 					System.out.println("Workspace Status\n");
-					Ventana.status.setText(repositorio.workspaceStatus());
+					System.out.println(repositorio.workspaceStatus());
+					System.out.println(repositorio.workspace2String());
+					System.out.println(repositorio.getWorkspace().workspace2String());
+					Ventana.status.setText("Arhivos actuales en el workspace : \n\n"+repositorio.workspaceStatus());
 				}
 
 //INDEX STATUS-----------------------------------------------------------------------------------------				
 				if(e.getSource() == Ventana.index) {
 					System.out.println("Index Status\n");
-					Ventana.status.setText(repositorio.indexStatus());
+					System.out.println(repositorio.indexStatus());
+					System.out.println(repositorio.index2String());
+					System.out.println(repositorio.getIndex().archivos2String());
+					Ventana.status.setText("Arhivos actuales  en el index : \n\n" +repositorio.indexStatus());
 				}
 
 //LOCAL REPOSITORY STATUS-----------------------------------------------------------------------------------------
+				//Mostrar los últimos 3 commits"Arhivos actuales en el workspace : \n"
 				if(e.getSource() == Ventana.localRepository) {
 					System.out.println("Local Repository Status\n");
 					//Ventana.status.setText(repositorio.gitLog());
-					Ventana.status.setText(repositorio.repositorioLocal2String());
+					int i;
+					if (repositorio.getLocalRepository().getTamano() <=3) {
+						i =repositorio.getLocalRepository().getTamano() ;
+					}else {
+						i = 3;
+					}
+					Ventana.status.setText("Los ultimos "+i+" Commits en local repository son : \n\n" + repositorio.getLocalRepository().repositoryStatus());
 				}
 
 //REMOTE REPOSITORY STATUS-----------------------------------------------------------------------------------------
+				//Mostrar los últimos 3 commits
 				if(e.getSource() == Ventana.remoteRepository) {
 					System.out.println("Remote Repository Status\n");
-					//Ventana.status.setText(repositorio.gitLogRemote());
-					Ventana.status.setText(repositorio.repositorioRemoto2String());
+					int i;
+					if (repositorio.getRemoteRepository().getTamano() <=3) {
+						i =repositorio.getRemoteRepository().getTamano() ;
+					}else {
+						i = 3;
+					}
+					Ventana.status.setText("Los ultimos "+i+" Commits en remote repository son : \n\n" + repositorio.getRemoteRepository().repositoryStatus());
 				}
 				
+		
 				
-//Sección Editor y creador de archivo
+				
+				
+				
+				
+				//Sección Editor y creador de archivo
+				
+				
+				
+				
 				
 //CREAR ARCHIVO ------------------------------------------------------------------------------------------
 				if(e.getSource() == Ventana.nuevoArchivo) {
 					System.out.println("NuevoArchivo\n");
 					String nombreArchivo =null;
-					nombreArchivo =(String)JOptionPane.showInputDialog(
-							null,
+					nombreArchivo = MainVista.mostrarMensaje(
 							"Ingrese el nombre de su archivo",
-							"Creando Archivo",
-							JOptionPane.OK_OPTION,
-							MainVista.gato,
-							null,
-							"Archivito.py");
+							"Creando Archivo",2);
+
 					
 					if (nombreArchivo == null){
 						System.out.println("No crear Archivo\n");
@@ -372,13 +514,9 @@ public class MainController {
 						}
 						else {
 							//Abrimos un dialogo de iniciar la edición o no
-							int editarContenido = JOptionPane.showConfirmDialog(
-									null,
-									"¿Desea editar el archivo creado?", 
-									"Edición de Archivo", 
-									JOptionPane.YES_NO_OPTION,
-									JOptionPane.QUESTION_MESSAGE,
-									MainVista.gato);
+							String editarContenidoString = MainVista.mostrarMensaje("¿Desea editar el archivo creado?", 4);
+							System.out.println("Respuesta : " + editarContenidoString);		
+							int editarContenido = Integer.valueOf(editarContenidoString);
 							if (editarContenido == JOptionPane.YES_OPTION) {
 								Editor editorTexto = new Editor(nombreArchivo, "");
 								controlDeEditor(editorTexto, repositorio.getNWorkspace()-1);
@@ -386,6 +524,8 @@ public class MainController {
 						}
 						
 					}
+					Ventana.status.setText(repositorio.workspaceStatus());
+					System.out.println(repositorio.workspace2String());
 				}
 
 //CREAR ARCHIVO ------------------------------------------------------------------------------------------
@@ -394,12 +534,7 @@ public class MainController {
 				if(e.getSource() == Ventana.editarArchivo) {
 					//Solo si el workspace no se encuentra vacío
 					if (repositorio.getWorkspace().isEmpty()) {
-						JOptionPane.showMessageDialog(
-								null,
-								"Workspace vacío, ¿qué archivo se puede editar?....",
-								"Bad Ending",
-								JOptionPane.PLAIN_MESSAGE,
-								MainVista.error);
+						MainVista.mostrarMensaje("Workspace vacío, ¿qué archivo se puede editar?....", 0);
 					}else {
 						int indice = listaDeArchivos();
 						if (indice != -1) {
@@ -408,12 +543,7 @@ public class MainController {
 						Editor editorTexto = new Editor(nombre, contenido);
 						controlDeEditor(editorTexto, indice);
 						}else {
-							JOptionPane.showMessageDialog(
-									null,
-									"No editar Archivo",
-									"Bad Ending",
-									JOptionPane.PLAIN_MESSAGE,
-									MainVista.error);
+							MainVista.mostrarMensaje("No editar archivo", 0);
 						}
 					}
 				}
@@ -427,6 +557,8 @@ public class MainController {
 //VER CONTENIDO ------------------------------------------------------------------------------------------
 			}
 		};
+
+//CONTROLADOR------------------------------------------------------------------------------------------
 		
 		//BOTONES de ventana
 		//Primera Fila
@@ -477,43 +609,28 @@ public class MainController {
 		   "Selector de opciones",
 		   JOptionPane.QUESTION_MESSAGE,
 		   MainVista.gato,  // null para icono defecto
-		   repositorio.getWorkspace().getArregloNombre(), 
+		   array, 
 		   null);
 		int indice = Arrays.asList(array).indexOf(seleccion);
 		System.out.println("El usuario ha elegido "+seleccion + " Indice " + indice + "\n");
 		return indice;	
 	}
 	
-	/**
-	 * Metodo para mostrar mensaje si es de error o de bueno
-	 * @param Mensaje
-	 * @param tipo
-	 * Tipo = 0 ERROR ; tipo = 1 OK
-	 */
-	public static void mostrarMensaje(String mensaje,int tipo) {
-		if (tipo == 0) {
-			JOptionPane.showMessageDialog(null,mensaje,"Bad Ending",JOptionPane.PLAIN_MESSAGE,MainVista.error);
-		}else if (tipo==1) {
-			JOptionPane.showMessageDialog(
-					null,
-					mensaje,
-					"Successful",
-					JOptionPane.PLAIN_MESSAGE,
-					MainVista.gato);
-		}else {
-			JOptionPane.showMessageDialog(
-					null,"Opción no disponible aún",
-					"Bad Ending",
-					JOptionPane.PLAIN_MESSAGE,
-					MainVista.error);
-		}
+	public static int listaDeRamas() {
+		String[] array = branches.branches2ArrayString();
 
-	}
-		
+		Object seleccion = JOptionPane.showInputDialog(
+		   null,//unComponentePadre,
+		   "Seleccione opcion",
+		   "Selector de opciones",
+		   JOptionPane.QUESTION_MESSAGE,
+		   MainVista.gato,  // null para icono defecto
+		   array, 
+		   null);
+		int indice = Arrays.asList(array).indexOf(seleccion);
+		System.out.println("El usuario ha elegido "+seleccion + " Indice " + indice + "\n");
+		return indice;	
 	}
 	
-	
-	
-    
-	
 
+	}

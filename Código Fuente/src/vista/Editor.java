@@ -55,7 +55,7 @@ public class Editor extends JFrame {
          guardar.setBounds(380,20,100,20);
          
          //Tabla de  Estados
-         contenido.setBounds(20,50,430,460);
+         contenido.setBounds(20,50,430,400);
          
  		//Añadiendo componentes
  		panel.add(guardar);

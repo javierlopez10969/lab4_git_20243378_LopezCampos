@@ -103,7 +103,9 @@ public class MiIndex{
 	 * */
 	public Boolean isEmpty() {return index.isEmpty();}
 	//Limpiar Index, asignamos una lista de archivos vacía
-	public void limpiarIndex(){setIndex(new ListaDeArchivos());}
+	public void limpiarIndex(){this.index = new ListaDeArchivos();
+								index = null;index =new ListaDeArchivos();
+								System.out.println("Tamaño de index" + index.getTamano() +"\nArchivos :" + index.archivos2String());}
 	//Obtener el tamaño total de archivos
 	public int getTamano() {return index.getTamano();}
 	//Obtener el index en sí

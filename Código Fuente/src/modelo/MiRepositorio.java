@@ -2,31 +2,29 @@ package modelo;
 
 public class MiRepositorio implements Cloneable{
 	//Atributos
+	//Datos respecto al repositorio
 	private String nombreRepositorio;
 	private String autor;
 	private String fechaDeCreacion;
 	private String branch = "Master";
 
 	//Zonas de trabajo
+	
+	
 	//Workspace
 	private MiWorkspace workspace;
+	
+	//Index
 	private MiIndex  index;
 	
-	//Repositories
+	//Local
 	private MiCommit localRepository;
+	
+	//Remote
 	private MiCommit remoteRepository;
 	
 	//Repositorio siguiente en caso de crear más ramas
 	private MiRepositorio siguiente = null;
-	
-	
-	//Metodos
-	
-	/**
-	 * Metodo constructor de repositorio
-	 */
-	public MiRepositorio() {
-	}
 	
 	
 	/*
@@ -80,11 +78,17 @@ public class MiRepositorio implements Cloneable{
 		remoteRepository = new MiCommit();
 	}
 
+	//METODOS DE LAS ZONAS DE TRABAJO 
+	
+	
 	//Metodos del Workspace
+	
 	//Se hacen llamadas a los metodos del workspace
 	public void editarArchivo(int indiceArchivo, String contenido) {workspace.editarArchivo(indiceArchivo, contenido);}
 	public void borrarArchivo() {workspace.borrarArchivo();}
 	public Boolean crearArchivo(String nombreArchivo) {return workspace.crearArchivo(nombreArchivo);}
+	
+	
 	
 	//MetodosIndex
 	
@@ -97,17 +101,16 @@ public class MiRepositorio implements Cloneable{
 		}
 		return index.getIndex().archivos2String();
 	}
+	public void limpiarIndex() {index.limpiarIndex();}
 	
 	
 	//Metodos Local Repository
 	/* Crear un commit a partir de un index no vacío
 	 * */
-	public Boolean gitCommit(String autor,String message){
-		if (!index.isEmpty()) {
-			Boolean confirmacion = localRepository.Commit(index, autor,message);
-			return confirmacion;
-		}
-		return false;
+	public Boolean gitCommit(String autorString,String message){
+		Boolean confirmacion = localRepository.Commit(index, autorString,message);
+		index.limpiarIndex();
+		return confirmacion;
 	}
 	
 	//Función que se encarga de imprimir el resultado obtenido en gitLog del local repository
@@ -117,24 +120,26 @@ public class MiRepositorio implements Cloneable{
 	
 	
 	//Metodos Remote Repository	
-	public void gitPush(){remoteRepository.gitPush(localRepository);}
+	public void gitPush(){
+		System.out.println("Making push.... modelo\n");
+		remoteRepository.gitPush(localRepository);
+	}
 	
 	
-	public void gitPull(){
+	public Boolean gitPull(){
 		if (remoteRepository.isEmpty()) {
 			System.out.println("Remote repositroy vacío no procede hacer pull\n");
 			System.out.println("Tamaño del repositorio :  " + localRepository.getTamano());
+			return false;
 		}
 		else {
-			//Si es distinto de  nulo el resultado seteamos el valor otorgado por este metodo
+			//Si es distinto de  nulo el resultado de este metodo seteamos el valor otorgado
 			ListaDeArchivos archivos = remoteRepository.gitPull(localRepository);
 			System.out.println("Workspace en remote es : \n"+ archivos.archivos2String());
-			if (archivos != null) {
-				System.out.println("Actualizar workspace, workspace antes : \n"+ workspace2String());
-				//Actualizar zona de trabajo
-				workspace.setArchivos(archivos);
-				System.out.println("Workspace ahora : \n+"+ workspace2String());	
-			}			
+			System.out.println("Actualizar workspace, workspace antes : \n" + workspace2String());
+			workspace.setArchivos(archivos);
+			System.out.println("Workspace ahora : \n+" + workspace2String());
+			return true;
 		}		
 	}
 	

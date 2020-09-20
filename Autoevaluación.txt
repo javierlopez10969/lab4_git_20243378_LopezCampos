@@ -8,115 +8,188 @@ PUNTAJE:
 1: Implementación completa sin problemas (funciona 100% de las veces)
 
 
+
 Requerimientos Funcionales Obligatorios.
 
-1. Clases y estructuras que forman el programa (1 pto) 1
 
-Implementar modelo orientado a objetos de la simulación de git. Esto debe incluir al
-menos las siguientes entidades: Archivo de texto plano, Commit, Zonas de trabajo y
-repositorio. Puede tomar como referencia las entidades creadas en el Laboratorio 3, o
-bien implementar alguna integración con los Laboratorios 1 o 2 (ver Requisitos
-Funcionales Extra). (1 pto)2. Su programa debe contar con las siguientes funcionalidades mínimas (basadas en el
-sistema de control de versiones git): Crear un nuevo archivo en el workspace, git init, git
-add, git commit, git pull, git push. (1,5 pts)
-3. Implementar una funcionalidad que permita obtener el estado de cada Zona de trabajo,
-mostrando una lista con los archivos incluidos (en el caso de Workspace e Index) o los
-últimos 3 commits (en el caso de Local Repository y Remote Repository). (0,5 pts)
-4. Implementar las funcionalidades indicadas en los Requisitos Funcionales mencionados
-anteriormente en una aplicación con entorno gráfico, utilizando elementos propios de la
-biblioteca de entorno gráfico seleccionada y separando las clases de modelo respecto
-de las de la vista. Puede utilizar el siguiente esquema como referencia para construir su
-interfaz gráfica de usuario: (1 pts)
+1 Implementar modelo orientado a objetos de la simulación de git. Esto debe incluir al menos las siguientes entidades:
+
+Archivo de texto plano     1
+Commit                     1
+Zonas de trabajo           1
+repositorio                1
+
+PUNTAJE  :  1
+
+
+2. Su programa debe contar con las siguientes funcionalidades mínimas (basadas en el sistema de control de versiones git): 
+
+Crear un nuevo archivo     1
+git init                   1
+git add                    1
+git commit                 1
+git pull                   1
+git push                   1
+
+PUNTAJE  :  1
+
+
+3. Implementar una funcionalidad que permita obtener el estado de cada Zona de trabajo, mostrando una lista con los archivos incluidos 
+(en el caso de Workspace e Index) o los últimos 3 commits (en el caso de Local Repository y Remote Repository)
+
+PUNTAJE  :  1
+
+
+4. Implementar las funcionalidades indicadas en los Requisitos Funcionales mencionados anteriormente en una aplicación con entorno 
+gráfico, utilizando elementos propios de la biblioteca de entorno gráfico seleccionada y separando las clases de modelo respecto de las 
+de la vista. Puede utilizar el siguiente esquema como referencia para construir su interfaz gráfica de usuario:
+
+PUNTAJE  :  1
+
 
 Requerimientos extra 
 
 1. Implementar cualquiera de los Requerimientos Extra indicados en el Laboratorio 3,
 
-a. git log                                      1 
-b. git branch                                   1
-c. git checkout                                 1
-d. git merge                                    1
+a. git log                                    
+
+PUNTAJE  :  1 
 
 
-2. Implementar un sistema de persistencia de las Zonas de trabajo mediante lectura y
-escritura de archivos 
-
-PUNTAJE  :  0
-
-
-3. Integrar la solución orientada a objetos con la solución bajo paradigma lógico a través de
-la integración con P# 
-
-PUNTAJE  :  0
+b. git branch
+                                   
+PUNTAJE  :  1
 
 
-4. Integrar la solución orientada a objetos con la solución bajo paradigma funcional a través
-de la integración con Iron Scheme
+c. git checkout                                 
 
-PUNTAJE  :  0
+PUNTAJE  :  1
 
-5. De forma alternativa a la integración directa entre C# y Scheme usando IronScheme, se
-puede reemplazar por integración a través de Web Services + REST directamente
-implementado en Dr. Racket ( http://docs.racket-lang.org/more/index.html ).
+
+d. git merge                                    
 
 PUNTAJE  :  0
 
 
-6. De forma alternativa a la integración directa entre C# y SWI Prolog usando P#, se puede
-reemplazar por integración a través de Web Services directamente implementado en
-Swi-Prolog ( http://www.swi-prolog.org/howto/http/ ) (1,5 pts) .
+2. Implementar un sistema de persistencia de las Zonas de trabajo mediante lectura y escritura de archivos 
 
 PUNTAJE  :  0
 
-7. También se consideran funcionalidades/características extras planteadas por el
-estudiante, sin embargo estas deben ser consultadas y aprobadas de manera formal por
-el profesor. Todo requerimiento extra no descrito en este documento puede ser
-considerado como bonificación a la nota, esto dependerá de la dificultad y atractivo de la
-funcionalidad. Los puntos alcanzados mediante funcionalidades extra solo se consideran
-solamente si los requisitos mínimos para obtener un 4.0 son completados
-satisfactoriamente.
+
+3. Integrar la solución orientada a objetos con la solución bajo paradigma lógico a través de la integración con P# 
+
+PUNTAJE  :  0
+
+
+4. Integrar la solución orientada a objetos con la solución bajo paradigma funcional a través de la integración con Iron Scheme
+
+PUNTAJE  :  0
+
+5. De forma alternativa a la integración directa entre C# y Scheme usando IronScheme, se puede reemplazar por integración a través de 
+Web Services + REST directamente implementado en Dr. Racket ( http://docs.racket-lang.org/more/index.html ).
+
+PUNTAJE  :  0
+
+
+6. De forma alternativa a la integración directa entre C# y SWI Prolog usando P#, se puede reemplazar por integración a través de Web 
+Services directamente implementado en Swi-Prolog ( http://www.swi-prolog.org/howto/http/ ) (1,5 pts) .
+
+PUNTAJE  :  0
+
+
+7. También se consideran funcionalidades/características extras planteadas por el estudiante, sin embargo estas deben ser consultadas y 
+aprobadas de manera formal por el profesor. Todo requerimiento extra no descrito en este documento puede ser considerado como 
+bonificación a la nota, esto dependerá de la dificultad y atractivo de la funcionalidad. Los puntos alcanzados mediante funcionalidades 
+extra solo se consideran solamente si los requisitos mínimos para obtener un 4.0 son completados satisfactoriamente.
+
+
+EDITOR DE TEXTO : Plataforma que permite al usuario editar el contenido de un archivo
+
+PUNTAJE  :  1
+
+
+
+
+
 
 
 
 Requerimientos No Funcionales obligatorios. 
 
 
-1. La implementación debe ser en el lenguaje de programación Java
+1. (obligatorio) El Laboratorio puede ser implementado considerando una de las siguientes opciones:
+a. Implementación mediante el lenguaje de programación Java, utilizando OpenJDK u OracleJDK compatible con la versión 8, utilizando AWT 
+o Swing como biblioteca de entorno gráfico. Puede usar un IDE (como NetBeans, Eclipse o IntelliJ IDEA) como apoyo al desarrollo, pero el 
+programa final debe poder ejecutarse sin necesitar uno. Se debe incluir un comando (en su documentación o mediante script) que permita 
+compilar su proyecto sin necesitar un IDE.
 
-PUNTAJE : 1
+
+b. Implementación mediante el lenguaje de programación C#, 
+
+PUNTAJE  :  1
+
+Hecho en java swing y awt
 
 
-2. Todas las interacciones con el programa deben ser mediante consola/terminal. Puede recurrir al uso de System.in y 
-System.out (en Java). Para sus funcionalidades, solo se permite el uso de la biblioteca estándar de Java (sin importar bibliotecas
-externas).
+2. (obligatorio) La implementación debe realizarse en Java/C# siguiendo los principios de la Orientación a Objetos (se evaluarán 
+aspectos tales como el uso de selectores, modificadores, alta cohesión, débil acoplamiento, encapsulación, consistencia entre diagrama 
+de clases UML e implementación).
 
-PUNTAJE : 1
+PUNTAJE  :  1
 
-3. (obligatorio) Su solución debe demostrar la aplicación del paradigma orientado a objetos. No basta con que su solución esté 
-implementada en Java. Su diseño y correspondiente implementación debe seguir los lineamientos del paradigma Orientado a Objetos.
 
-PUNTAJE : 1
+3. (obligatorio) Separar claramente las capas de modelo y vista. NO es necesario diseñar e implementar solución en base a patrón MVC , 
+sin embargo los objetos del modelo no debe tener ningún grado de acople con los objetos de la vista (objetos del modelo no conocen 
+objetos de la vista, esto es, que los objetos del modelo no pueden realizar modificaciones en las vistas o realizar llamados a métodos 
+de las mismas). Por el contrario, los objetos de la vista si pueden operar con objetos del modelo. Importante, los objetos que 
+implemente relativos a interfaz de usuario solo deben manejar las interacciones de usuario. Todo lo relativo al movimiento de archivos 
+entre zonas de trabajo, algoritmos del problema concreto, deben ser resueltos en el modelo.
+
+PUNTAJE  :  1
+
 
 4. (1 pto) Se debe documentar el código indicando una breve descripción de las clases creadas, sus atributos, métodos y relaciones. 
-Procure utilizar comentarios tipo Javadoc para esto.
+Procure utilizar comentarios tipo Javadoc (link) o XML (link) para esto.
 
-PUNTAJE : 1
+PUNTAJE  :  1
+
 
 5. (1 pto) Se debe cuidar la organización del código (orden y claridad). Procure que su diseño de clases no viole los principios de 
 acoplamiento y cohesión.
 
-PUNTAJE 1
+PUNTAJE  :  1
 
 6. (1.5 pto) Como parte de su Informe de Laboratorio, debe incluir un diagrama de clases UML a nivel de análisis que describa las 
-entidades y relaciones del problema abordado.
+entidades y relaciones del problema abordado. Este diagrama se debe crear antes del proceso de desarrollo.
 
-PUNTAJE 1
+PUNTAJE  :  1
 
-7. (1.5 pto) Como parte de su Informe de Laboratorio, debe incluir un diagrama de clases UML tras la implementación de la solución
+7. (1.5 pto) Como parte de su Informe de Laboratorio, debe incluir un diagrama de clasesUML tras la implementación de la solución, este 
+diagrama debe ser coherente con la implementación en código de su solución. Este diagrama se debe crear después del desarrollo de la 
+solución.
 
-PUNTAJE : 1
+PUNTAJE  :  1
 
-8. (1 pto) Historial de trabajo en GitHub 
 
-PUNTAJE : 1
-t
+8. (1 pto) Historial de trabajo en GitHub tomando en consideración la evolución en el desarrollo de su proyecto en distintas etapas. Se 
+requieren al menos 5 commits distribuidos en un periodo de tiempo mayor o igual a 7 días . Los criterios que se consideran en la 
+evaluación de este ítem son: fecha primer commit, fecha último commit, total commits y máximo de commits diarios. A modo de ejemplo (y 
+solo como una referencia), si hace todos los commits el día antes de la entrega del proyecto, este ítem tendrá 0 pts. De manera similar, 
+si hace dos commits dos semanas antes de la entrega final y el resto los concentra en los últimos dos días, tendrá una evaluación del
+25% para este ítem (0.25 pts). Por el contrario, si demuestra constancia en los commits (con aportes claros entre uno y otro) a lo largo 
+del periodo evaluado, este ítem será evaluado con el total del puntaje.
+
+PUNTAJE  :  1
+
+
+9. (obligatorio) Regirse por las instrucciones de funcionamiento del programa especificadas en el Laboratorio 3.
+
+PUNTAJE  :  1
+
+
+
+
+
+
+
+

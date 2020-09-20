@@ -1,6 +1,4 @@
 package modelo;
-
-import java.util.Scanner;
 /**
  * Clase Branches que permite almacenar distintos repositorios, con disitntas nombres de rama
  * Contiene disitntos metodos para crear ramas e intercambiarse y/o moverse entre ellas
@@ -30,66 +28,40 @@ public class Branches {
 	}
 	/**
 	 * GitBranch, funcionalidad extra, que permite el crear una nueva rama a partir de master
-	 * @return
+	 * @return el nuevo repositorio con la nueva rama
 	 */
-	public MiRepositorio gitBranch() {
-		System.out.println("¿Cuál es el nombre de su rama nueva a crear a partir de master ? \n");
-		String respueString = "";
-		@SuppressWarnings("resource")
-		Scanner scanner = new Scanner(System.in);
-		try {
-			respueString = scanner.nextLine();
-		} catch (Exception e) {
-			System.out.println("Ha ocurrido un error "+ e + "\n");
-		}
-		if (respueString.equals("")|| respueString.equals("\n")) {
-			respueString = "MiRama";
-		}
+	public MiRepositorio gitBranch(String rama, String autor) {
 		//Si el nombre nuevo no se encuentra ya dentro de una de las ramas
-		if (!isInside(respueString)) {		
-		//Decimos que la nueva Branch es exactamente igual a como ha quedado master
-		MiRepositorio master = getMaster();
- 		//Intentamos copiar el repositorio master en una nueva dirección de memoria
-		//Por mientras la seteamos en el master normal
-		MiRepositorio newBranch = getMaster();
-		try {
-			//La clonamos
-			newBranch = (MiRepositorio)master.clone();
-		} catch (CloneNotSupportedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		//Seteamos el nombre de la nueva branch
-		newBranch.setBranch(respueString);
-		//Seteamos correctamente los atributos
-		newBranch.copiarAtributos(getMaster());
-		//Y preguntamos si quiere seguir con el mismo autor o uno nuevo
-		System.out.println("¿Quiere cambiar de autor? \n"+
-		"Sí / no \n");
-		try {
-			respueString = scanner.nextLine();
-		} catch (Exception e) {
-			System.out.println("Ha ocurrido un error \n"+ e);
-		}
-		if (respueString.equals("si") || respueString.equals("Si") || respueString.equals("YES")
-		|| respueString.equals("1") || respueString.equals("SIPO") || respueString.equals("yes")
-		|| respueString.equals("YES") || respueString.equals("Sí") ) {
-			System.out.println("Ingrese el nombre de su autor :\n");
+		if (!isInside(rama)) {		
+			//Decimos que la nueva Branch es exactamente igual a como ha quedado master
+			MiRepositorio master = getMaster();
+	 		//Intentamos copiar el repositorio master en una nueva dirección de memoria
+			//Por mientras la seteamos en el master normal
+			MiRepositorio newBranch = getMaster();
 			try {
-				respueString = scanner.nextLine();
-			} catch (Exception e) {
-				System.out.println("Ha ocurrido un error \n"+ e);
+				//La clonamos
+				newBranch = (MiRepositorio)master.clone();
+			} catch (CloneNotSupportedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
-			if (respueString.equals("")) {
-				respueString = "Ryan Gosling";	
-			}
-			newBranch.setAutor(respueString);
-		}
-		System.out.println("Autor : " + newBranch.getAutor() + "\n" +
-		"Nueva Branch creada : \n" + newBranch.gitStatus());
-		insertarBranch(newBranch);
-		//Devolvemos la ultima branch
-		return getBranchN(getTamano()-1) ;
+			
+			//Seteamos el nombre de la nueva branch
+			newBranch.setBranch(rama);
+			
+			//Seteamos correctamente los atributos
+			newBranch.copiarAtributos(getMaster());
+			
+			//Seteamos el autor nuevo o fijo
+			newBranch.setAutor(autor);
+			
+			
+			System.out.println("Autor : " + newBranch.getAutor() + "\n" +
+			"Nueva Branch creada : \n" + newBranch.gitStatus());
+			insertarBranch(newBranch);
+			//Devolvemos la ultima branch creada
+			return getBranchN(getTamano()-1) ;
+			
 		}else {
 			System.out.println("El nombre de esa rama ya existe, no procedemos a crear nueva rama\n"
 					+ "Volviendo a Master \n");
@@ -122,8 +94,8 @@ public class Branches {
 	/**
 	 * Metodo que nos permite cambiar de ramas, le pregutna al usuario a cual rama se quiere cambiar
 	 * @return MiRepositorio, repositorio en el cual nos vamos a cambiar, se efectua el cambio en el metodo main
-	 */
-	public MiRepositorio gitCheckOut() {
+	*/
+	public MiRepositorio gitCheckOut(int indice) {
 		if (getTamano() == 1) {
 			System.out.println("Actualmente solo hay una rama, para hacer checkout, deberá crear una rama nueva\n");
 			return getMaster();
@@ -131,23 +103,16 @@ public class Branches {
 			System.out.println("Estás son sus ramas : \n" +
 			branches2String() +
 			"\n Eliga el indice : de la branch que quiere cambiarse ");
-			@SuppressWarnings("resource")
-			Scanner scanner = new Scanner(System.in);
-			int n = 0;
-			try {
-				n = scanner.nextInt();
-			} catch (Exception e) {
-				System.out.println("Ha ocurrido un error"+ e +"\n");
-			}
-			if (n > getTamano() || n < 0) {
+
+			if (indice > getTamano() || indice < 0) {
 				System.out.println("El indice ingresado supera los limites \n" + 
-				"Volviendo a Maste \n");
+				"Volviendo a Master \n");
 				return getMaster();
 			}
-			return getBranchN(n);
-
+			return getBranchN(indice);
 		}
 	}
+	
 	
 	/**
 	 * Metodo que nos permite obtener una rama n, para despues cambiarnos a esa rama
@@ -180,10 +145,28 @@ public class Branches {
 			salidaString = salidaString + i + ".-\n" +  punteroMiRepositorio.gitStatus() + "\n\n\n";  
 			punteroMiRepositorio = punteroMiRepositorio.getSiguiente() ;
 			i++;
-			
 		}
 		return salidaString;
 	}
+	
+	/**
+	 * Transformar cada nombre de las ramas en un arreglo de Strings
+	 * @return
+	 */
+	public String[] branches2ArrayString() {
+		int i = 0; 
+		//Inicializamos el arreglo con los nombres de cada rama
+		String[] salidaString = new String[getTamano()];
+		MiRepositorio punteroMiRepositorio = getMaster();
+		while (i < getTamano() && punteroMiRepositorio!= null) {
+			salidaString [i] = punteroMiRepositorio.getBranch() ;  
+			punteroMiRepositorio = punteroMiRepositorio.getSiguiente() ;
+			i++;
+		}
+		return salidaString;
+	}
+	
+	
 	
 	/**
 	 * Metodo para verficar si un nombre ya existe como rama

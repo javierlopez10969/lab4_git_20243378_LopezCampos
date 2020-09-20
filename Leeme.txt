@@ -17,4 +17,4 @@ java Compilar
 
 java modelo.Menu
 
-Ahora podrá simular git.
+Ahora podrá simular git con una interfaz gráfica.

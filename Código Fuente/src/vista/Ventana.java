@@ -53,6 +53,7 @@ public class Ventana extends JFrame {
 	public static JButton nuevoArchivo = new JButton();
 	public static JButton editarArchivo = new JButton();
 	public static JButton verContenido = new JButton();
+	public static JButton limpiarIndex = new JButton();
 	public static JComboBox<String> archivos = new JComboBox<String>();
 	
 	
