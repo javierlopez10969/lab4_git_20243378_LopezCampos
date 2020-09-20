@@ -52,7 +52,7 @@ public class Editor extends JFrame {
          guardar.setText("Guardar");        
          guardar.setForeground(Color.white);
          guardar.setBackground(MainVista.negro);
-         guardar.setBounds(400,20,140,20);
+         guardar.setBounds(380,20,100,20);
          
          //Tabla de  Estados
          contenido.setBounds(20,50,430,460);

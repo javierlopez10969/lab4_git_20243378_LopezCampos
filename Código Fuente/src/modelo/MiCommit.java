@@ -83,55 +83,26 @@ public class MiCommit implements Cloneable {
      * @param autor autor del repositorio
      * @return void, pero agrega o no, un nuevo commit al Local Repository
      */
-	public void Commit(MiIndex index, String autor) {
-		//Para que se ejecute el push primero el index entregado no debe estar vacío
+	public Boolean Commit(MiIndex index, String autor,String comentrario) {
+		//Para que se ejecute el commit, primero el index entregado no debe estar vacío
 		//Además que debe ser distinto al último index entregado
 		if (!index.getIndex().isEmpty() && this.existenCambios(index.getIndex())) {
-			String comentrario = "";
-			@SuppressWarnings("resource")
-			Scanner scanner = new Scanner(System.in);
-			System.out.println("Ingrese el comentario a su commit : ");
-			try {
-				comentrario = scanner.nextLine();
-			} catch (Exception e) {
-				System.out.println("Ha ocurrido un error : "+e+"\n");
-			}
-			if (comentrario.equals("") || comentrario.equals("\n")) {
+			//Si entrega un comentario vacío asignamos comentario predifinido
+			if (comentrario.equals("") || comentrario.equals("\n")||comentrario.equals(" ") || comentrario.equals("Commit")) {
 				comentrario = "Mi Commit UwU";
 			}
-			System.out.println("Desea  usar el autor predeterminado o cambiar el nombre del autor\n"
-			+ "1.- Autor Predeterminado\n"
-			+ "2.- Autor Distinto\n");
-			int x = 1;
-			try {
-				x = scanner.nextInt();
-			} catch (Exception e) {
-				System.out.println("Ha ocurrido un error : "+e+"\n");
-			}
-			System.out.println(x +"\n");
-			if (x==2) {
-				@SuppressWarnings("resource")
-				Scanner scanner2 = new Scanner(System.in);
-				System.out.println("Ingrese el nombre de su autor\n");
-				try {
-					autor = scanner2.nextLine();
-				} catch (Exception e) {
-					System.out.println("Ha ocurrido un error : "+e+"\n");
-				}
-				if (autor.equals("") || autor.equals("\n")) {
-					autor = "Ryan Gosling";
-				}
+			if (autor.equals("") || autor.equals("\n")||comentrario.equals(" ") || autor.equals("  ") || autor.charAt(0)==' ') {
+				autor = "Ryan Gosling";
 			}
 			System.out.println("Autor : " + autor+ "\n");
 			//Creamos un nuevo commit a partir del index actual
-			if (comentrario == "") {
-				comentrario = "Sin comentario\n";
-			}
 			Commit nodo = new Commit(index,autor,comentrario);
 			insertarCommit(nodo);
 			System.out.println("Commit creado\n");
+			return true;
 		}else {
 			System.out.println("El index entregado no posee nuevos cambios con respecto al index anterior\n");
+			return false;
 		}
 	}
 	

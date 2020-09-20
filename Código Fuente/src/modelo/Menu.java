@@ -59,9 +59,9 @@ public class Menu {
                 //Commit
                 case 2:{
                     System.out.println("Commit\n");
-                    repositorio.gitCommit();
-                    System.out.println("Index vaciado\n");
-                    Thread.sleep(2000);
+                    //repositorio.gitCommit();
+                    //System.out.println("Index vaciado\n");
+                    //Thread.sleep(2000);
                     break;
                 }
                 //pull
@@ -158,14 +158,7 @@ public class Menu {
                 } 
                 
                 
-                //FUNCIONES SECRETAS
-                //Mostrar local repository
-                case 18:{
-                	System.out.println("Función secreta mostrar toodo Local Repository\n");
-                	repositorio.mostrarRepositorioLocal();
-                	Thread.sleep(4000);
-                	break;
-                }
+
                 //Log de remote repository
                 case 19:{
                 	System.out.println("Función secreta Log de Remote Repository\n");
@@ -173,13 +166,7 @@ public class Menu {
                 	Thread.sleep(4000);
                 	break;
                 }
-                //Mostrar remote repository
-                case 20:{
-                	System.out.println("Función secreta mostrar toodo Remote Repository\n");
-                	repositorio.mostrarRepositorioRemoto();
-                	Thread.sleep(4000);
-                	break;
-                }
+
                 default :{
                 	System.out.println("Ingrese opción válida\n");
         			break;

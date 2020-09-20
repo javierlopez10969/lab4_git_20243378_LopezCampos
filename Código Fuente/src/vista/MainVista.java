@@ -2,7 +2,6 @@ package vista;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Image;
 import javax.swing.ImageIcon;
 
 public class MainVista {
@@ -26,10 +25,10 @@ public class MainVista {
 
 	 public static ImageIcon gato = new ImageIcon("vista/cat.png");
 	 
+	 public static ImageIcon error = new ImageIcon("vista/error.png");
 	 
 	 
-	 public static ImageIcon createIcon(Image imagen) {
-		return new ImageIcon(imagen);
-	}
+	 
+
 
 }

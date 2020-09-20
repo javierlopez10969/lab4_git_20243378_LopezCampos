@@ -246,7 +246,7 @@ public class Ventana extends JFrame {
          
          
          //Tabla de  Estados
-         scrollStatus.setBounds(200,20,250,150);
+         scrollStatus.setBounds(200,20,290,150);
          status.setEditable(false);
          status.setText("Cree un archivo");
 		 

@@ -102,33 +102,24 @@ public class MiRepositorio implements Cloneable{
 	//Metodos Local Repository
 	/* Crear un commit a partir de un index no vacío
 	 * */
-	public void gitCommit(){
+	public Boolean gitCommit(String autor,String message){
 		if (!index.isEmpty()) {
-			localRepository.Commit(index, autor);
-			index.limpiarIndex();
-		}else {
-			System.out.println("Index vacío no procede hacer el commit\n");
+			Boolean confirmacion = localRepository.Commit(index, autor,message);
+			return confirmacion;
 		}
+		return false;
 	}
 	
 	//Función que se encarga de imprimir el resultado obtenido en gitLog del local repository
-	public void gitLog() {System.out.println(localRepository.gitLog());}
+	public String gitLog() {return localRepository.gitLog();}
+	//Función que se encarga de imprimir el resultado obtenido en gitLog del remote repository
+	public String gitLogRemote() {return remoteRepository.gitLog();}
 	
 	
 	//Metodos Remote Repository	
-	public void gitPush(){
-		if (localRepository.isEmpty()) {
-			System.out.println("Local repositroy vacío, no procede hacer push\n");
-		}
-		else if (remoteActualizadoBoolean()){
-			System.out.println("Remote repositroy se encuentra actualizado, no procede hacer push\n");
-		}
-		else {
-			System.out.println("Making push ...\n");
-			remoteRepository.gitPush(localRepository);
-		}
-		
-	}
+	public void gitPush(){remoteRepository.gitPush(localRepository);}
+	
+	
 	public void gitPull(){
 		if (remoteRepository.isEmpty()) {
 			System.out.println("Remote repositroy vacío no procede hacer pull\n");
@@ -200,10 +191,10 @@ public class MiRepositorio implements Cloneable{
 	
 	//Remote Status
 	public Boolean remoteActualizadoBoolean() {return remoteRepository.getTamano() == localRepository.getTamano();}
+	
 	//Funciones secretas para el creador para ver los estados de los repositorios
-	public void gitLogRemote() {System.out.println(remoteRepository.gitLog());}
-	public void mostrarRepositorioLocal() {System.out.println(localRepository.repositorio2String());}
-	public void mostrarRepositorioRemoto() {System.out.println(remoteRepository.repositorio2String());}
+	public String repositorioLocal2String() {return localRepository.repositorio2String();}
+	public String repositorioRemoto2String() {return remoteRepository.repositorio2String();}
 	
 	//Setters and Getters
 	
