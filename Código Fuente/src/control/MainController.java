@@ -88,7 +88,7 @@ public class MainController {
 
 	}
 	
-	public static void controlDeComandos() {
+	private static void controlDeComandos() {
 		ActionListener control = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

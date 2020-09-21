@@ -271,7 +271,7 @@ public class Ventana extends JFrame {
          status.setText("Cree un archivo");
 		 
          //Añadiendo Botones al panel
-		 panel2.add(reInit);
+		   panel2.add(reInit);
          panel2.add(add);
          panel2.add(commit);
          panel2.add(pull);
@@ -292,7 +292,7 @@ public class Ventana extends JFrame {
          panel2.add(editarArchivo);
          panel2.add(verContenido);
          panel2.add(scrollStatus);
-         panel2.add(archivos);
+         //panel2.add(archivos);
 	 }
 	
 }
