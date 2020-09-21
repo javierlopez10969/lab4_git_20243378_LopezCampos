@@ -11,20 +11,31 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 
+/**
+ * Ventana editor de texto plano
+ * @author javier
+ *
+ */
 @SuppressWarnings("serial")
 public class Editor extends JFrame {
 	//Atributos
 	
-	//Establecemos el panel para el inicio de la simulación : 
+	//Panel para editar el archivo
 	public JPanel  panel = new JPanel();
 	//Boton para guardar
 	public JButton guardar = new JButton();
+	//Nombre del archivo
 	public JLabel titulo = new JLabel("",SwingConstants.CENTER);
 	
 	//Editor de texto
 	public JTextPane editor = new JTextPane();
 	public JScrollPane contenido= new JScrollPane(editor);
 	
+	/**
+	 * Metodo constructor del editor
+	 * @param Nombre
+	 * @param Contenido
+	 */
 	public Editor(String Nombre,String Contenido){
 	    setSize(500,500); 
 	    setLocationRelativeTo(null);
@@ -37,6 +48,10 @@ public class Editor extends JFrame {
 	    setVisible(true);
 	    iniciarComponentes();
 	}
+	
+	/**
+	 * Inciar los componentes del editor
+	 */
 	public void iniciarComponentes() {
 		 panel.setLayout(null);//Desactivamos diseño
          panel.setBackground(Color.white);
@@ -63,8 +78,7 @@ public class Editor extends JFrame {
  		panel.add(contenido);
 	}
 	
+	//Getter del contenido
 	public String getContenido() {return editor.getText();}
-	
-	
 
 }

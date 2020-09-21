@@ -5,6 +5,11 @@ import java.awt.Font;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
+/**
+ * Clase con atributos generales y ventanas de mensaje para la vista 
+ * @author javier
+ *
+ */
 public class MainVista {
 	 //PALLETE
 	 //Gris
@@ -30,8 +35,10 @@ public class MainVista {
 	 
 	 public static ImageIcon branch = new ImageIcon("vista/branch.png");
 	 
+	 
+	 
 	 /**
-	  * Mostrar mensaje en interfaz dependiendo del tipo del mensaje
+	  * Ventana para mostrar mensaje en interfaz dependiendo del tipo del mensaje
 	  * @param mensaje
 	  * @param tipo
 	  * 0 error
@@ -41,7 +48,12 @@ public class MainVista {
 	  */
 	public static String mostrarMensaje(String mensaje,int tipo) {
 		if (tipo == 0) {
-			JOptionPane.showMessageDialog(null,mensaje,"Bad Ending",JOptionPane.PLAIN_MESSAGE,error);
+			JOptionPane.showMessageDialog(
+			null,
+			mensaje,
+			"Bad Ending",
+			JOptionPane.PLAIN_MESSAGE,
+			error);
 			return null;
 		}else if (tipo==1) {
 			JOptionPane.showMessageDialog(
@@ -53,13 +65,13 @@ public class MainVista {
 			return null;
 		}else if (tipo == 2) {
 			String respuesta =(String)JOptionPane.showInputDialog(
-					null,
-					mensaje,
-					"Dialogo",
-					JOptionPane.OK_OPTION,
-					MainVista.gato,
-					null,
-					"Archivito.py");
+			null,
+			mensaje,
+			"Dialogo",
+			JOptionPane.OK_OPTION,
+			MainVista.gato,
+			null,
+			"Archivito.py");
 			return respuesta;
 		}else if (tipo==3) {
 			JOptionPane.showMessageDialog(
@@ -91,6 +103,13 @@ public class MainVista {
 		}return null;
 	}
 	
+	/**
+	 * Sobrecarga de mostrar mensaje, pero ahora se puede cambiar el nombre que se meustra en la ventana
+	 * @param mensaje
+	 * @param ventana
+	 * @param tipo
+	 * @return
+	 */
 	public static String mostrarMensaje(String mensaje,String ventana,int tipo) {
 		if (tipo == 2) {
 			String respuesta =(String)JOptionPane.showInputDialog(

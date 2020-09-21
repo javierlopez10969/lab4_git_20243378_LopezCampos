@@ -11,27 +11,47 @@ import vista.Editor;
 import vista.MainVista;
 import vista.Ventana;
 
+/**
+ * Clase controlador de procesos del modelo, es la encargada de interactuar con el modelo y la vista
+ * @author javier
+ *
+ */
 public class MainController {
 
 	//Atributos
-	private static Ventana ventana = new Ventana();
-	private static MiRepositorio repositorio = new MiRepositorio();
-	private static Branches branches ;
-	//private static ActionListener control;
-
-	public static void main(String[] args) {
-		init();
-	}
 	
-	//Le damos la función de tener un action listener1
-	public static void init() {
+	//Ventana de la vista
+	private static Ventana ventana = new Ventana();
+	
+	//Repositorio del modelo
+	private static MiRepositorio repositorio = new MiRepositorio();
+	
+	//Ramas del modelo
+	private static Branches branches ;
+
+	
+	//Main para inicializar el controlador de la pantalla de inicio
+	public static void main(String[] args) {init();}
+	
+	/**
+	 * Le damos la función de tener un action listener1
+	 * Este metodo inciializa el controlador de la pantalla de inicio
+	 */
+	private static void init() {
 	    ActionListener ActionListener1 = new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				//Si los valores son strings correctos
 				if (ventana.repositorio.getText().equals("") && ventana.autor.getText().equals("")) {
 					//Component parentComponent, Object message, String title, int optionType, int messageType, Icon icon)
-					int reply = JOptionPane.showConfirmDialog(null, "Desea continuar con valor predeterminados?","Opciones", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,MainVista.gato);
+					int reply = JOptionPane.showConfirmDialog(
+							null, 
+							"Desea continuar con valor predeterminados?",
+							"Opciones",
+							JOptionPane.YES_NO_OPTION,
+							JOptionPane.QUESTION_MESSAGE,
+							MainVista.gato);
+					
 					if (reply == JOptionPane.YES_OPTION) {
 					    gitInit();
 					} else {
@@ -46,6 +66,10 @@ public class MainController {
 		ventana.iniciar.addActionListener(ActionListener1);
 	}
 	
+	
+	/**
+	 * Metodo que inicializa el repositorio
+	 */
 	private static void gitInit() {
 		String autorInit = ventana.autor.getText();
 		String repositorioInit = ventana.repositorio.getText();
@@ -162,7 +186,8 @@ public class MainController {
 						System.out.println("No se puede hacer commit, Index vacío");
 						MainVista.mostrarMensaje("No se puede hacer commit, Index vacío",0);
 					}else if (!repositorio.getLocalRepository().existenCambios(repositorio.getIndex())) {						
-						MainVista.mostrarMensaje("El index entregado no posee nuevos cambios con respecto al index anterior",0);
+						MainVista.mostrarMensaje(
+						"El index entregado no posee nuevos cambios con respecto al index anterior",0);
 						MainVista.mostrarMensaje("Index Vaciado",1);
 						repositorio.limpiarIndex();
 					}else {
@@ -209,12 +234,22 @@ public class MainController {
 										"Archivito.py");
 								if (autor==null){
 									autor  = "Ryan Gosling";
-									JOptionPane.showMessageDialog(null,"Conservar autor","Mismo autor",JOptionPane.PLAIN_MESSAGE,MainVista.gato); 
+									JOptionPane.showMessageDialog(
+									null,
+									"Conservar autor",
+									"Mismo autor",
+									JOptionPane.PLAIN_MESSAGE,
+									MainVista.gato); 
 								}
 							}
 							
 							else {
-								JOptionPane.showMessageDialog(null,"Conservar autor","Mismo autor",JOptionPane.PLAIN_MESSAGE,MainVista.gato); 
+								JOptionPane.showMessageDialog(
+								null,
+								"Conservar autor",
+								"Mismo autor",
+								JOptionPane.PLAIN_MESSAGE,
+								MainVista.gato); 
 							}
 							
 							
@@ -267,9 +302,14 @@ public class MainController {
 						
 						//Solo es posible si el remote se encuentra actualizado
 						if (repositorio.getRemoteRepository().getTamano() < repositorio.getLocalRepository().getTamano()) {
-							System.out.println("El remote se encuentra desactualizado, ¿quiere proceder a transformar el local y el workspace al ultimo commit en remote repository?\n");
+							System.out.println(
+							"El remote se encuentra desactualizado, ¿quiere proceder a "
+							+ "transformar el local "
+							+ "y el workspace al ultimo commit en remote repository?\n");
 							String respuestaString = MainVista.mostrarMensaje(
-							"El remote se encuentra desactualizado, ¿quiere proceder a transformar el local y el workspace al ultimo commit en remote repository?\n"
+							"El remote se encuentra desactualizado, ¿quiere proceder a "
+							+ "transformar el local "
+							+ "y el workspace al ultimo commit en remote repository?\n"
 							, 4);
 							System.out.println("Respuesta : " + respuestaString);
 							if (respuestaString.equals("0") ) {
@@ -280,10 +320,12 @@ public class MainController {
 								MainVista.mostrarMensaje("No hacer pull",0);
 							}
 						}
-						else if (repositorio.getRemoteRepository().getTamano() == repositorio.getLocalRepository().getTamano()){
-							System.out.println("El remote se encuentra actualizado, ¿quiere proceder a redifinir el workspace ?\n");
+						else if (repositorio.getRemoteRepository().getTamano()==repositorio.getLocalRepository().getTamano()){
+							System.out.println(
+							"El remote se encuentra actualizado, "
+							+ "¿quiere proceder a redifinir el workspace ?\n");
 							String respuestaString = MainVista.mostrarMensaje(
-									"El remote se encuentra actualizado, ¿quiere proceder a redifinir el workspace ?\n"
+							"El remote se encuentra actualizado, ¿quiere proceder a redifinir el workspace ?\n"
 									, 4);
 							System.out.println("Respuesta : "+respuestaString);
 							if (respuestaString.equals("0") ) {

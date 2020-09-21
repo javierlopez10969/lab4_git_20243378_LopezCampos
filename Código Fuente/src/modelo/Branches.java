@@ -35,6 +35,7 @@ public class Branches {
 		if (!isInside(rama)) {		
 			//Decimos que la nueva Branch es exactamente igual a como ha quedado master
 			MiRepositorio master = getMaster();
+			
 	 		//Intentamos copiar el repositorio master en una nueva dirección de memoria
 			//Por mientras la seteamos en el master normal
 			MiRepositorio newBranch = getMaster();
@@ -46,6 +47,7 @@ public class Branches {
 				e1.printStackTrace();
 			}
 			
+			
 			//Seteamos el nombre de la nueva branch
 			newBranch.setBranch(rama);
 			
@@ -55,13 +57,11 @@ public class Branches {
 			//Seteamos el autor nuevo o fijo
 			newBranch.setAutor(autor);
 			
-			
 			System.out.println("Autor : " + newBranch.getAutor() + "\n" +
 			"Nueva Branch creada : \n" + newBranch.gitStatus());
 			insertarBranch(newBranch);
 			//Devolvemos la ultima branch creada
 			return getBranchN(getTamano()-1) ;
-			
 		}else {
 			System.out.println("El nombre de esa rama ya existe, no procedemos a crear nueva rama\n"
 					+ "Volviendo a Master \n");
@@ -136,10 +136,12 @@ public class Branches {
 	
 	/**
 	 * Transforma todas las ramas presentes a un estado string, para posteriormente mostrarlas por pantalla
-	 * @return
+	 * @return String con todos los valores de las ramas
 	 */
 	public String branches2String() {
-		int i = 0; String salidaString ="";
+		int i = 0; 
+		//Salida con todos los valores de los commits en un puro string
+		String salidaString ="";
 		MiRepositorio punteroMiRepositorio = getMaster();
 		while (i < getTamano() && punteroMiRepositorio!= null) {
 			salidaString = salidaString + i + ".-\n" +  punteroMiRepositorio.gitStatus() + "\n\n\n";  
@@ -151,12 +153,13 @@ public class Branches {
 	
 	/**
 	 * Transformar cada nombre de las ramas en un arreglo de Strings
-	 * @return
+	 * @return arreglo String
 	 */
 	public String[] branches2ArrayString() {
 		int i = 0; 
-		//Inicializamos el arreglo con los nombres de cada rama
+		//Inicializamos el arreglo con el tamaño total de ramas
 		String[] salidaString = new String[getTamano()];
+		
 		MiRepositorio punteroMiRepositorio = getMaster();
 		while (i < getTamano() && punteroMiRepositorio!= null) {
 			salidaString [i] = punteroMiRepositorio.getBranch() ;  
@@ -184,14 +187,18 @@ public class Branches {
 			punteroMiRepositorio = punteroMiRepositorio.getSiguiente();
 			i++;
 		}
-		//En cambio si completamos todo el recorrido devolvemos verdadero
+		//En cambio si completamos todo el recorrido sin encontrarlo, devolvemos falso
 		return false;
 	}
 	
 	
 	//Getters and Setters
+	
+	//Master
 	public MiRepositorio getMaster() {return master;}
 	public void setMaster(MiRepositorio master) {this.master = master;}
+	
+	//Total de ramas
 	public int getTamano() {return tamano;}
 	public void setTamano(int tamano) {this.tamano = tamano;}
 }

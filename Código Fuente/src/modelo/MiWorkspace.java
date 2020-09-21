@@ -1,5 +1,4 @@
 package modelo;
-import java.util.Scanner;
 
 /* Clase encargada de la manipulación del workspace, podría ser una lista de archivos simplemente el workspace
  * Y que esa lista sea manipulada por el mismo repositorio, pero necesitamos que una clase se ocupe enteramente del workspace
@@ -10,7 +9,7 @@ import java.util.Scanner;
  * */
 
 public class MiWorkspace implements Cloneable{
-	//Atributos
+	//Atributos : lista de archivos
 	private ListaDeArchivos archivos = new ListaDeArchivos();
 
 	//Metodos
@@ -39,7 +38,7 @@ public class MiWorkspace implements Cloneable{
 	
 	/**
 	 * Método encargado de borrar un archivo
-	 */
+
 	public void borrarArchivo() {
 		if (!isEmpty()) {
 			//Mostramos el workspace
@@ -58,6 +57,7 @@ public class MiWorkspace implements Cloneable{
 			System.out.println("No se puede borrar ningún archivo, ya que el workspace se encuentra vacío\n");
 		}		
 	}
+	 */
 
 	/**
 	 * Metodo, que permite editar un archivo
@@ -86,16 +86,23 @@ public class MiWorkspace implements Cloneable{
 
 	
 	//Setters and getters
+	
+	//Archivo n
 	public Archivo getArchivoN(int n) {return archivos.getArchivoN(n);}
+	//Copiar archivon
 	public Archivo getArchivoNCopy(int n) {return archivos.getArchivoNCopy(n);}
+	
+	//Nuevos archivos (index)
 	public void setArchivos(ListaDeArchivos archivos) {
 		//Actualizamos tanto tamaño
 		this.archivos.setTamano(archivos.getTamano());
 		//Como los archivos
 		this.archivos = archivos;}
+	
+	//Obtener archivos
 	public ListaDeArchivos getArchivos() {return archivos;}
 	public int getTamano() {return archivos.getTamano();}
-	
+	//Obtener string con los nombres de los archivos
 	public String[] getArregloNombre() {return archivos.nombreArchivo2StringArray();}
 	
 	

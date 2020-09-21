@@ -28,7 +28,7 @@ java Compilar
 Y ahora ejecute el programa principal : 
 Comando3:
 
-java modelo.Menu
+java control.MainController
 
 
 Caso de error :
@@ -37,11 +37,11 @@ En caso de que la compilación no se ejecutará correctamente ingrese los siguie
 
 Comando 1 :
 
-javac ./utils/Contenido.java ./utils/ListaDeArchivos.java ./modelo/Menu.java ./modelo/Archivo.java ./modelo/MiArchivo.java ./modelo/MiIndex.java ./modelo/MiRepositorio.java ./modelo/MiWorkspace.java ./modelo/Tiempo.java ./modelo/Branches.java
+javac ./modelo/ListaDeArchivos.java ./modelo/Archivo.java ./modelo/MiArchivo.java ./modelo/MiIndex.java ./modelo/MiRepositorio.java ./modelo/MiWorkspace.java ./modelo/Tiempo.java ./modelo/Branches.java ./vista/Editor.java ./vista/MainVista.java ./vista/PlaceHolder.java ./vista/Ventana.java ./control/MainController.java
 	
 Comando 1 alternativo :
 
-javac ./modelo/Menu.java
+javac ./control/MainController.java
 
 Comando 2 ejecutar programa : 
 

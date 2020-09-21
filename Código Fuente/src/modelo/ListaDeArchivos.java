@@ -15,36 +15,51 @@ public class ListaDeArchivos {
 	private int tamano ;
 	
 	/**
-	 * una clase interna de lista enlazada, sirve como nodo para enlazar cada contenido de archivo
+	 * una clase interna de lista enlazada, sirve como nodo de una lista enlazada para enlazar cada contenido de archivo
 	 * @author javier
-	 *
 	 */
 	private class nodoArchivo{
+		//Atributos
+		//Archivo que guardo
 		private Archivo myArchivo;
+		//Siguiente archivo
 		private nodoArchivo siguiente = null;
-		//Setters anf getters
+		
+
+		//Metodo constructor
 		public nodoArchivo(Archivo myArchivo ) {this.setMyArchivo(myArchivo);}
+		
+		//Setters and getters
+		
+		//Archivo
 		//public archivo getMyArchivo() {return myArchivo;}
 		public void setMyArchivo(Archivo myArchivo) {this.myArchivo = myArchivo;}
+		
+		//Siguiente
 		public nodoArchivo getSiguiente() {return siguiente;}
 		public void setSiguiente(nodoArchivo siguiente) {this.siguiente = siguiente;}
 	}
 	
 	//Metodos
 	
+	
 	/**
-	 * Insertar la inicio de la lista
+	 * Insertar al inicio de la lista un nuevo nodo
 	 * @param myArchivo  archivo que se quiere agregar a la lista
 	 */
 	public void insertarPrincipio(Archivo myArchivo){
 		nodoArchivo nodo = new nodoArchivo(myArchivo);
+		
 		//El siguiente elmenento es la cabeza
 		nodo.siguiente = cabeza;
+		
 		//Y la nueva cabeza es el nodo
 		setCabeza(nodo);		
+		
 		//Actualizamos el tamaño de la lista
 		setTamano(tamano + 1);
 	}
+	
 	
 	/**
 	 * Insertar un archivo al final de la lista
@@ -52,14 +67,17 @@ public class ListaDeArchivos {
 	 */
 	//Insertar al final
 	public void insertarFinal(Archivo myArchivo) {
+		//Creamos un nuevo nodo
 		nodoArchivo nodo = new nodoArchivo(myArchivo) ;
+		//Puntero para recorrer la lsita
 		nodoArchivo puntero = getCabeza() ;
-		//Mientras no llegemos al final del puntero
+		
+		//Mientras no llegemos al final de la lista
 		while(puntero.siguiente !=null) {
 			puntero = puntero.getSiguiente();}
+		
 		//Una vez llegado al final, asignamos el nuevo nodo
-		puntero.setSiguiente(nodo);	
-		setTamano(tamano +1);		
+		puntero.setSiguiente(nodo);setTamano(tamano +1);		
 	}
 	
 	/**
@@ -67,11 +85,8 @@ public class ListaDeArchivos {
 	 * @param myArchivo archivo que se quiere agregar a la lista
 	 */
 	public void anadirArchivo(Archivo myArchivo) {
-		if (isEmpty()) {
-			insertarPrincipio(myArchivo);
-		}else {
-			insertarFinal(myArchivo);
-		}
+		if (isEmpty()) {insertarPrincipio(myArchivo);
+		}else {insertarFinal(myArchivo);}
 	}
 	
 	/**
@@ -91,11 +106,9 @@ public class ListaDeArchivos {
 			puntero.siguiente = borrar.siguiente; 
 			borrar.siguiente = null;
 			setTamano(tamano -1);	
-		}else {
-			System.out.println("Indice supera los limites");
-		}
-
+		}else {System.out.println("Indice supera los limites");}
 	}
+	
 	
 	/**
 	 * Devolver todos los archivos y su contenido en un string
@@ -117,6 +130,8 @@ public class ListaDeArchivos {
 			return("Lista de archivos vacía\n");
 		}
 	}
+	
+	
 	/**
 	 * Devolver todos los nombres y fechas archivos a través de uns string
 	 * @return
@@ -138,6 +153,13 @@ public class ListaDeArchivos {
 		}
 	}
 	
+	
+	/**
+	 * Devolver solo los nombres de los archivos en un string
+	 * Zona depende que zona es : workspace o index
+	 * @param zona
+	 * @return
+	 */
 	public String nombreArchivo2String(int zona) {
 		if (!isEmpty()) {
 			String salidaString ="";
@@ -164,6 +186,10 @@ public class ListaDeArchivos {
 		}
 	}
 	
+	/**
+	 * Devolver en un arreglo de strings, los nombres de los archivos
+	 * @return
+	 */
 	public String[] nombreArchivo2StringArray() {
 		String[] salidaString = new String [getTamano()];
 		if (!isEmpty()) {
@@ -181,7 +207,12 @@ public class ListaDeArchivos {
 	}
 	
 	
-	
+	/**
+	 * Obtener un archivo n
+	 * Con su dirección de memoria correspondiente para poder editarlo directamente
+	 * @param n , indice del archivo
+	 * @return
+	 */
 	public Archivo getArchivoN(int n){
 		//Si el n ingresado no supera el tamaño total de archivos
 		if (n > tamano || n < 0) {
@@ -206,7 +237,8 @@ public class ListaDeArchivos {
 	
 	
 	/**
-	 * Metodo que dado un indice n, devuelva el archivo correspondiente en la lista
+	 * Metodo que dado un indice n, devuelva la copia del archivo correspondiente en la lista
+	 * Esta es una copia para insertarla en otro lugar
 	 * @param n, indice donde se encuentra el archivo
 	 * @return Archivo, archivo con el indice || null si el indice supera los limites
 	 */
@@ -332,7 +364,11 @@ public class ListaDeArchivos {
 	
 	//Esta vacía la lista de archivos
 	public Boolean isEmpty() {return tamano == 0;}
+	
+	
 	//Setter and getters
+	
+	
 	public nodoArchivo getCabeza() {return cabeza;}
 	public void setCabeza(nodoArchivo cabeza) {	this.cabeza = cabeza;}
 	public int getTamano() {return tamano;}

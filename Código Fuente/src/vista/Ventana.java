@@ -13,11 +13,17 @@ import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 
 
-
+/**
+ * Clase ventana, es la vista principal del programa
+ * @author javier
+ *
+ */
 @SuppressWarnings("serial")
 public class Ventana extends JFrame {
 	//Atributos
 	
+	//Panel 1
+
 	//Establecemos el panel para el inicio de la simulación : 
 	public JPanel  panel = new JPanel();
 	public JButton iniciar = new JButton();
@@ -26,12 +32,14 @@ public class Ventana extends JFrame {
 	public JLabel titulo = new JLabel("Simulación de GIT",SwingConstants.CENTER);
 	
 	//Panel 2 de comandos
+
 	public JPanel  panel2 = new JPanel();
 	public JLabel autorLabel = new JLabel();
 	public JLabel repositorioLabel = new JLabel();
 	public JLabel ramaLabel = new JLabel();
 	
 	//Botones
+
 	// Comandos
 	public static JButton reInit= new JButton();
 	public static JButton add= new JButton();
@@ -49,7 +57,7 @@ public class Ventana extends JFrame {
 	public static JScrollPane scrollStatus = new JScrollPane(status);
 	
 	
-	//Creación y edición de archivos
+	//Creación y edición de archivos 2 fila grande
 	public static JButton nuevoArchivo = new JButton();
 	public static JButton editarArchivo = new JButton();
 	public static JButton verContenido = new JButton();
@@ -67,6 +75,10 @@ public class Ventana extends JFrame {
 	
 	
 	//Metodos
+
+	/**
+	 * Metoodo constructor de ventana
+	 */
 	public Ventana(){
 	    setSize(500,500); 
 	    setLocationRelativeTo(null);
@@ -78,6 +90,10 @@ public class Ventana extends JFrame {
 	    setVisible(true);
 	}
 	
+	
+	/**
+	 * Inicializar los componentes del panel 1 de inicio
+	 */
 	 private void iniciarPanel1(){
 		 panel.setLayout(null);//Desactivamos diseño
          panel.setBackground(Color.white);
@@ -135,6 +151,9 @@ public class Ventana extends JFrame {
          
 	 }
 	 
+	 /**
+	  * Inicializar los componentes del segundo pane, para la interacción de comandos
+	  */
 	 public void iniciarPanel2() {
 		 panel2.setLayout(null);//Desactivamos diseño
          panel2.setBackground(Color.white);

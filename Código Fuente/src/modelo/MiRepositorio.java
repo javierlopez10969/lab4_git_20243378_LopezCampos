@@ -2,6 +2,7 @@ package modelo;
 
 public class MiRepositorio implements Cloneable{
 	//Atributos
+	
 	//Datos respecto al repositorio
 	private String nombreRepositorio;
 	private String autor;
@@ -10,25 +11,38 @@ public class MiRepositorio implements Cloneable{
 
 	//Zonas de trabajo
 	
-	
-	//Workspace
-	private MiWorkspace workspace;
-	
-	//Index
-	private MiIndex  index;
-	
-	//Local
-	private MiCommit localRepository;
-	
-	//Remote
-	private MiCommit remoteRepository;
-	
+
+	private MiWorkspace workspace;	//Workspace
+	private MiIndex  index;			//Index
+	private MiCommit localRepository;//Local Repository
+	private MiCommit remoteRepository;	//Remote Repository
+
 	//Repositorio siguiente en caso de crear más ramas
 	private MiRepositorio siguiente = null;
 	
 	
-	/*
-	 * Seteador de atributos a partir de otro repositorio copiador
+	
+	//METODOS 
+	
+	//METODOS CONTRUCTORES
+	
+	/**
+	 * Clonador de repositorio
+	 */
+	   public MiRepositorio clone() throws CloneNotSupportedException {
+		   try
+		   {
+			   MiRepositorio clonedMyClass = (MiRepositorio)super.clone();
+		       // if you have custom object, then you need create a new one in here
+		       return clonedMyClass ;
+		   } catch (CloneNotSupportedException e) {
+		       e.printStackTrace();
+		       return new MiRepositorio();
+		   }
+	   }
+	
+	/**
+	 * Contstructor a partir de otro repositorio
 	 */
 	public void copiarAtributos(MiRepositorio repositorio) {
 		MiIndex index = new MiIndex();
@@ -63,6 +77,8 @@ public class MiRepositorio implements Cloneable{
 		this.setLocalRepository(newLocal);
 		this.setRemoteRepository(newRemote);
 	}
+	
+	
 	/**
 	 * Constructor del repositorio con gitinit
 	 * @param autor
@@ -78,6 +94,9 @@ public class MiRepositorio implements Cloneable{
 		remoteRepository = new MiCommit();
 	}
 
+	
+	
+	
 	//METODOS DE LAS ZONAS DE TRABAJO 
 	
 	
@@ -85,7 +104,7 @@ public class MiRepositorio implements Cloneable{
 	
 	//Se hacen llamadas a los metodos del workspace
 	public void editarArchivo(int indiceArchivo, String contenido) {workspace.editarArchivo(indiceArchivo, contenido);}
-	public void borrarArchivo() {workspace.borrarArchivo();}
+	//public void borrarArchivo() {workspace.borrarArchivo();}
 	public Boolean crearArchivo(String nombreArchivo) {return workspace.crearArchivo(nombreArchivo);}
 	
 	
@@ -104,28 +123,37 @@ public class MiRepositorio implements Cloneable{
 	public void limpiarIndex() {index.limpiarIndex();}
 	
 	
+	
+	
+	
 	//Metodos Local Repository
-	/* Crear un commit a partir de un index no vacío
-	 * */
+	
+	
+	//Crear un commit a partir de un index no vacío
 	public Boolean gitCommit(String autorString,String message){
 		Boolean confirmacion = localRepository.Commit(index, autorString,message);
 		index.limpiarIndex();
 		return confirmacion;
 	}
-	
 	//Función que se encarga de imprimir el resultado obtenido en gitLog del local repository
 	public String gitLog() {return localRepository.gitLog();}
-	//Función que se encarga de imprimir el resultado obtenido en gitLog del remote repository
-	public String gitLogRemote() {return remoteRepository.gitLog();}
+	
+	
 	
 	
 	//Metodos Remote Repository	
+	
+	
+	
+	//Función que se encarga de imprimir el resultado obtenido en gitLog del remote repository
+	public String gitLogRemote() {return remoteRepository.gitLog();}
+	//Metodo para realizar el push del repositorio
 	public void gitPush(){
 		System.out.println("Making push.... modelo\n");
 		remoteRepository.gitPush(localRepository);
 	}
 	
-	
+	//Traer el ultimo commit a cambios locales
 	public Boolean gitPull(){
 		if (remoteRepository.isEmpty()) {
 			System.out.println("Remote repositroy vacío no procede hacer pull\n");
@@ -142,6 +170,12 @@ public class MiRepositorio implements Cloneable{
 			return true;
 		}		
 	}
+	
+	
+	
+	
+	//METODOS DE AMBITO GENERAL
+	
 	
 	/**
 	 * git Status
@@ -164,6 +198,8 @@ public class MiRepositorio implements Cloneable{
 		return salidaString ;
 	}
 	
+	
+	
 	/**
 	 * Metodo que revisa si los remote se encuentra actualizado de acuerdo al tamaño
 	 * @return
@@ -179,27 +215,17 @@ public class MiRepositorio implements Cloneable{
 		}
 	}
 	
-	/**
-	 * Clonador de repositorio
-	 */
-	   public MiRepositorio clone() throws CloneNotSupportedException {
-		   try
-		   {
-			   MiRepositorio clonedMyClass = (MiRepositorio)super.clone();
-		       // if you have custom object, then you need create a new one in here
-		       return clonedMyClass ;
-		   } catch (CloneNotSupportedException e) {
-		       e.printStackTrace();
-		       return new MiRepositorio();
-		   }
-	   }
+	
 	
 	//Remote Status
 	public Boolean remoteActualizadoBoolean() {return remoteRepository.getTamano() == localRepository.getTamano();}
 	
-	//Funciones secretas para el creador para ver los estados de los repositorios
+	//Funciones secretas para repositorio para ver los estados de los repositorios
 	public String repositorioLocal2String() {return localRepository.repositorio2String();}
 	public String repositorioRemoto2String() {return remoteRepository.repositorio2String();}
+	
+	
+	
 	
 	//Setters and Getters
 	

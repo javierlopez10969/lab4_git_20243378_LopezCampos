@@ -15,6 +15,6 @@ javac Compilar.java
 
 java Compilar
 
-java modelo.Menu
+java control.MainController
 
 Ahora podrá simular git con una interfaz gráfica.

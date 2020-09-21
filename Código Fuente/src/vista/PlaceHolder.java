@@ -6,11 +6,20 @@ import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
+/**
+ * Clase placeholder. la cual fue programada para tener un tipo de jfield con un campo llenado
+ * pero que se vacíe cuando uno escriba algo
+ * @author javier
+ *
+ */
 @SuppressWarnings("serial")
 public class PlaceHolder extends JFrame {
+	//Atributos
+	//El textfield para la vista
 	private JTextField field;
-	//String Holder
+	//String Holder cuando no hay nada escrito
 	private String holderString;
+	//El string cuando se escrube algo
 	private String string;
 	
 	public PlaceHolder(String text){
@@ -41,6 +50,7 @@ public class PlaceHolder extends JFrame {
 		} );
 	}
 	
+	//Setters and getters
 	public void setText(String newString) {this.string = newString;}
 	public String getText() {return this.string;}
 	public JTextField getField() {return this.field;}
