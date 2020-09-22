@@ -454,6 +454,8 @@ public class MainController {
 							System.out.println("Cambiado a : " + repositorio.getBranch() );
 							MainVista.mostrarMensaje("Ahora se encuentra en : "+ repositorio.getBranch(),1);
 							Ventana.status.setText("Rama  : " + repositorio.getBranch());
+							ventana.autorLabel.setText(repositorio.getAutor());
+							ventana.ramaLabel.setText("Branch: "+repositorio.getBranch());
 						}
 					}else {
 						MainVista.mostrarMensaje("Solo hay una rama, no es posible hace el checkout",0);
